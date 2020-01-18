@@ -12,9 +12,11 @@ We use .NET Core 3.0
 
 For installation of the SDK on defferent operating systems refer to https://dotnet.microsoft.com/download/dotnet-core/3.0 
 
-## VS Code
+## Development environments
 
-### Recommended plugins:
+### VS Code
+
+#### Recommended plugins:
 
 > [!WARNING]
 > this should be added to an env scaffolding script (make or something)
