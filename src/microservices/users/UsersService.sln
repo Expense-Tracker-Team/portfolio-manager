@@ -7,15 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BE59EC77-C51
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F9470F7E-017A-40E8-AA3D-412F054099C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Api", "src\Presentation\UsersService.Api\UsersService.Api.csproj", "{3D3F60CB-F15F-43CF-98B4-0AAF31588472}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Api", "src\Presentation\Api\UsersService.Api.csproj", "{3D3F60CB-F15F-43CF-98B4-0AAF31588472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Application", "src\Core\UsersService.Application\UsersService.Application.csproj", "{0CC5BFC9-EAF8-46C9-9DD4-A4CF46C5623F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Application", "src\Core\Application\UsersService.Application.csproj", "{0CC5BFC9-EAF8-46C9-9DD4-A4CF46C5623F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Domain", "src\Core\UsersService.Domain\UsersService.Domain.csproj", "{AEE470A5-4F06-42FE-A783-4838F166FCDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Domain", "src\Core\Domain\UsersService.Domain.csproj", "{AEE470A5-4F06-42FE-A783-4838F166FCDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Infrastructure", "src\Infrastructure\UsersService.Infrastructure\UsersService.Infrastructure.csproj", "{00F9DE63-FDFA-4695-A895-D0AD60E6719D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Infrastructure", "src\Infrastructure\Infrastructure\UsersService.Infrastructure.csproj", "{00F9DE63-FDFA-4695-A895-D0AD60E6719D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Persistence", "src\Infrastructure\UsersService.Persistence\UsersService.Persistence.csproj", "{EC4EF06C-CD59-466D-B376-F3D0F292832D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.Persistence", "src\Infrastructure\Persistence\UsersService.Persistence.csproj", "{EC4EF06C-CD59-466D-B376-F3D0F292832D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersService.UnitTests", "tests\UsersService.UnitTests\UsersService.UnitTests.csproj", "{9E331AE9-A84D-4BAD-A037-CB1080A4E4FA}"
 EndProject

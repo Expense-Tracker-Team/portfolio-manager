@@ -11,6 +11,8 @@
 - Some of the systems that are prerequisites will probably be in installation as well as part of the script that downloads and links dependencies
 - Examples of prior knowledge is needing to know what is Kafka or Splunk or Spanner and how those work on a high level.
 
+
+
 ## Installation
 
 - Preferably be a one liner (`make` for example). Sometimes this can have exceptions when you need to download a GUI app (like Kitematic for Docker images for example)

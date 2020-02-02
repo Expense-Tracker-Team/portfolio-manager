@@ -5,6 +5,9 @@ namespace UsersService.Api
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using UsersService.Application;
+    using UsersService.Application.Interfaces;
+    using Prometheus;
 
     public class Startup
     {
@@ -12,6 +15,8 @@ namespace UsersService.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGrpc();
+            services.AddScoped<IUserService, Application.UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,13 +28,17 @@ namespace UsersService.Api
             }
 
             app.UseRouting();
+            app.UseHttpMetrics();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<UserHandler>();
+
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
+                endpoints.MapMetrics();
             });
         }
     }

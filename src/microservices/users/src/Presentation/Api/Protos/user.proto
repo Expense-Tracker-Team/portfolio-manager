@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcUsers";
+
+package user;
+
+// The users service definition.
+service Users {
+  rpc CreateUser (CreateUserRequest) returns (User);
+  rpc UpdateUser (UpdateUserRequest) returns (User);
+  rpc GetUser (GetUserRequest) returns (User);
+}
+
+
+message CreateUserRequest {
+  string email = 1;
+  string name = 2;
+}
+
+message UpdateUserRequest {
+  string email = 1;
+  string name = 2;
+}
+
+message GetUserRequest {
+  string uuid = 1;
+}
+
+message User {
+  string uuid = 1;
+  string email = 2;
+  string name = 3;
+}
