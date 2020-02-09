@@ -1,6 +1,7 @@
 namespace Api
 {
     using System.Threading.Tasks;
+    using Application.Interfaces;
     using Grpc.Core;
     using GrpcUsers;
     using Microsoft.Extensions.Logging;

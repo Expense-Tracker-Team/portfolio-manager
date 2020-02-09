@@ -12,7 +12,8 @@ namespace Api
     using Serilog.Sinks.Elasticsearch;
     using System;
     using Microsoft.Extensions.Logging;
-
+    using Application.Interfaces;
+    using Application.Services;
 
     public class Startup
     {
@@ -40,7 +41,7 @@ namespace Api
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
             services.AddGrpc();
-            services.AddScoped<IUserService, Application.UserService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
