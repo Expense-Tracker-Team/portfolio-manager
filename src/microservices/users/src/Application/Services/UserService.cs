@@ -1,4 +1,4 @@
-namespace Application{
+namespace Application.Services {
     using Application.Interfaces;
 
 
