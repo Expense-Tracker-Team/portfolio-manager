@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Grpc.Core;
-using GrpcUsers;
-using Microsoft.Extensions.Logging;
-using Application.Interfaces;
-
 namespace Api
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Grpc.Core;
+    using GrpcUsers;
+    using Microsoft.Extensions.Logging;
+    using Application.Interfaces;
+
     public class UserHandler : Users.UsersBase
     {
         private readonly ILogger<UserHandler> _logger;

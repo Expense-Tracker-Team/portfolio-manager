@@ -1,19 +1,18 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Application.Interfaces;
-using Prometheus;
-using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
-using System;
-using Microsoft.Extensions.Logging;
-
 namespace Api
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Application.Interfaces;
+    using Prometheus;
+    using Microsoft.Extensions.Configuration;
+    using Serilog;
+    using Serilog.Events;
+    using Serilog.Sinks.Elasticsearch;
+    using System;
+    using Microsoft.Extensions.Logging;
 
 
     public class Startup
