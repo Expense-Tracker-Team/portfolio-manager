@@ -1,26 +1,31 @@
 namespace Api
 {
     using System.Threading.Tasks;
+
     using Application.Interfaces;
+
     using Grpc.Core;
+
     using GrpcUsers;
+
     using Microsoft.Extensions.Logging;
 
     public class UserHandler : Users.UsersBase
     {
-        private readonly ILogger<UserHandler> _logger;
-        private readonly IUserService _userService;
+        private readonly ILogger<UserHandler> logger;
+        private readonly IUserService userService;
+
         public UserHandler(ILogger<UserHandler> logger, IUserService userService)
         {
-            this._logger = logger;
-            this._userService = userService;
+            this.logger = logger;
+            this.userService = userService;
         }
 
         public override Task<User> CreateUser(CreateUserRequest request, ServerCallContext context)
         {
             return Task.FromResult(new User
             {
-                Uuid =  System.Guid.NewGuid().ToString(),
+                Uuid = System.Guid.NewGuid().ToString(),
                 Email = request.Email,
                 Name = request.Name
             });
@@ -30,7 +35,7 @@ namespace Api
         {
             return Task.FromResult(new User
             {
-                Uuid =  System.Guid.NewGuid().ToString(),
+                Uuid = System.Guid.NewGuid().ToString(),
                 Email = request.Email,
                 Name = request.Name
             });
@@ -38,12 +43,11 @@ namespace Api
 
         public override Task<User> GetUser(GetUserRequest request, ServerCallContext context)
         {
-            
             return Task.FromResult(new User
             {
-                Uuid =  System.Guid.NewGuid().ToString(),
+                Uuid = System.Guid.NewGuid().ToString(),
                 Email = "Protos for the win!",
-                Name =  this._userService.GetUser()
+                Name = this.userService.GetUser()
             });
         }
     }
