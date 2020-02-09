@@ -1,6 +1,6 @@
-using UsersService.Application.Interfaces;
+using Application.Interfaces;
 
-namespace UsersService.Application{
+namespace Application{
     
     public class UserService : IUserService
     {

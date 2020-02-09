@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UsersService.Application.Interfaces;
+using Application.Interfaces;
 using Prometheus;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -12,7 +12,7 @@ using Serilog.Sinks.Elasticsearch;
 using System;
 using Microsoft.Extensions.Logging;
 
-namespace UsersService.Api
+namespace Api
 {
 
 

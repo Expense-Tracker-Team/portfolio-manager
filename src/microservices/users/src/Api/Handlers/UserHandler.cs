@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using GrpcUsers;
 using Microsoft.Extensions.Logging;
-using UsersService.Application.Interfaces;
+using Application.Interfaces;
 
-namespace UsersService.Api
+namespace Api
 {
     public class UserHandler : Users.UsersBase
     {

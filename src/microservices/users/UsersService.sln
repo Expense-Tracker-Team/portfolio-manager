@@ -7,21 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BE59EC77-C51
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F9470F7E-017A-40E8-AA3D-412F054099C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.Api", "src\Api\UsersService.Api.csproj", "{3D3F60CB-F15F-43CF-98B4-0AAF31588472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{3D3F60CB-F15F-43CF-98B4-0AAF31588472}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.Application", "src\Application\UsersService.Application.csproj", "{0CC5BFC9-EAF8-46C9-9DD4-A4CF46C5623F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{0CC5BFC9-EAF8-46C9-9DD4-A4CF46C5623F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.Domain", "src\Domain\UsersService.Domain.csproj", "{AEE470A5-4F06-42FE-A783-4838F166FCDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{AEE470A5-4F06-42FE-A783-4838F166FCDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.Infrastructure", "src\Infrastructure\UsersService.Infrastructure.csproj", "{00F9DE63-FDFA-4695-A895-D0AD60E6719D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{00F9DE63-FDFA-4695-A895-D0AD60E6719D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.Persistence", "src\Persistence\UsersService.Persistence.csproj", "{EC4EF06C-CD59-466D-B376-F3D0F292832D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Persistence\Persistence.csproj", "{EC4EF06C-CD59-466D-B376-F3D0F292832D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.UnitTests", "tests\UsersService.UnitTests\UsersService.UnitTests.csproj", "{9E331AE9-A84D-4BAD-A037-CB1080A4E4FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{9E331AE9-A84D-4BAD-A037-CB1080A4E4FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.IntegrationTests", "tests\UsersService.IntegrationTests\UsersService.IntegrationTests.csproj", "{C4B3AAAA-86F8-457E-861E-309CE03EC56B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\IntegrationTests\IntegrationTests.csproj", "{C4B3AAAA-86F8-457E-861E-309CE03EC56B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService.FunctionalTests", "tests\UsersService.FunctionalTests\UsersService.FunctionalTests.csproj", "{33739FA8-732E-4295-B451-646EC97194CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\FunctionalTests\FunctionalTests.csproj", "{33739FA8-732E-4295-B451-646EC97194CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace UsersService.Application.Interfaces.Infrastructure
+﻿namespace Application.Interfaces.Infrastructure
 {
     public interface ILoggerService
     {
