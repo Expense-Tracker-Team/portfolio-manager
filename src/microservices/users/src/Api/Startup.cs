@@ -5,7 +5,6 @@ namespace Api
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Application.Interfaces;
     using Prometheus;
     using Microsoft.Extensions.Configuration;
     using Serilog;
