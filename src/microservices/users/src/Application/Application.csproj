@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Boundaries\" />
     <Folder Include="Interfaces\Gateways\" />
+    <Folder Include="Services\" />
     <Folder Include="UseCases\" />
   </ItemGroup>
 
