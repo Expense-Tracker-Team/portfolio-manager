@@ -4,10 +4,7 @@ namespace Application{
     
     public class UserService : IUserService
     {
-        public string GetUser()
-        {
-            return "hello";
-        }
+        public string GetUser() => "hello";
     }
 
 }
