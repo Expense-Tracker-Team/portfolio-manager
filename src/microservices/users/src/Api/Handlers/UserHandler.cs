@@ -1,31 +1,29 @@
 namespace Api
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-
-    using Application.Interfaces;
-
     using Grpc.Core;
-
     using GrpcUsers;
-
     using Microsoft.Extensions.Logging;
+    using Application.Interfaces;
 
     public class UserHandler : Users.UsersBase
     {
-        private readonly ILogger<UserHandler> logger;
-        private readonly IUserService userService;
-
+        private readonly ILogger<UserHandler> _logger;
+        private readonly IUserService _userService;
         public UserHandler(ILogger<UserHandler> logger, IUserService userService)
         {
-            this.logger = logger;
-            this.userService = userService;
+            _logger = logger;
+            _userService = userService;
         }
 
         public override Task<User> CreateUser(CreateUserRequest request, ServerCallContext context)
         {
             return Task.FromResult(new User
             {
-                Uuid = System.Guid.NewGuid().ToString(),
+                Uuid =  System.Guid.NewGuid().ToString(),
                 Email = request.Email,
                 Name = request.Name
             });
@@ -35,7 +33,7 @@ namespace Api
         {
             return Task.FromResult(new User
             {
-                Uuid = System.Guid.NewGuid().ToString(),
+                Uuid =  System.Guid.NewGuid().ToString(),
                 Email = request.Email,
                 Name = request.Name
             });
@@ -43,11 +41,12 @@ namespace Api
 
         public override Task<User> GetUser(GetUserRequest request, ServerCallContext context)
         {
+            
             return Task.FromResult(new User
             {
-                Uuid = System.Guid.NewGuid().ToString(),
+                Uuid =  System.Guid.NewGuid().ToString(),
                 Email = "Protos for the win!",
-                Name = this.userService.GetUser()
+                Name =  this._userService.GetUser()
             });
         }
     }
