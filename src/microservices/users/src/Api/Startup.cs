@@ -28,8 +28,8 @@ namespace Api
                    AutoRegisterTemplate = true
                })
                .CreateLogger();
- 
-            Configuration = configuration;
+
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }

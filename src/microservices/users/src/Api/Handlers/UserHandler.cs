@@ -11,8 +11,8 @@ namespace Api
         private readonly IUserService _userService;
         public UserHandler(ILogger<UserHandler> logger, IUserService userService)
         {
-            _logger = logger;
-            _userService = userService;
+            this._logger = logger;
+            this._userService = userService;
         }
 
         public override Task<User> CreateUser(CreateUserRequest request, ServerCallContext context)
