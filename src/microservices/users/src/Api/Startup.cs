@@ -1,25 +1,28 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using UsersService.Application.Interfaces;
-using Prometheus;
-using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
-using System;
-using Microsoft.Extensions.Logging;
-
-namespace UsersService.Api
+namespace Api
 {
+    using System;
 
+    using Application.Interfaces;
+    using Application.Services;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+
+    using Prometheus;
+
+    using Serilog;
+    using Serilog.Events;
+    using Serilog.Sinks.Elasticsearch;
 
     public class Startup
     {
-         public Startup(IConfiguration configuration)
-        { 
+        public Startup(IConfiguration configuration)
+        {
             // Create Serilog Elasticsearch logger
             Log.Logger = new LoggerConfiguration()
                .Enrich.FromLogContext()
@@ -30,8 +33,8 @@ namespace UsersService.Api
                    AutoRegisterTemplate = true
                })
                .CreateLogger();
- 
-            Configuration = configuration;
+
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -42,7 +45,7 @@ namespace UsersService.Api
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
             services.AddGrpc();
-            services.AddScoped<IUserService, Application.UserService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
