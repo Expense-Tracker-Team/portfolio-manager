@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Protobuf Include="Protos\users.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\users.proto" GrpcServices="Both" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="prometheus-net" Version="3.4.0" />
