@@ -2,7 +2,6 @@ namespace Api
 {
     using System;
     using Api.Interceptors;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -30,7 +29,9 @@ namespace Api
                    MinimumLogEventLevel = LogEventLevel.Verbose,
                    AutoRegisterTemplate = true
                })
+               .WriteTo.Console()
                .CreateLogger();
+            
 
             this.Configuration = configuration;
         }
@@ -53,6 +54,7 @@ namespace Api
             });
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -62,6 +64,8 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
             app.UseHttpMetrics();
