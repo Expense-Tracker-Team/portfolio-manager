@@ -7,9 +7,17 @@ namespace Api
     using Api.Protos;
     using Google.Protobuf.WellKnownTypes;
     using Grpc.Core;
-
+    using Microsoft.Extensions.Logging;
+    using Serilog;
+    using Serilog.Context;
+    
     public class UserHandlerV1 : Users.UsersBase
     {
+        private ILogger<UserHandlerV1> logger;
+
+        public UserHandlerV1(ILogger<UserHandlerV1> logger){
+            this.logger = logger;
+        }
         private static readonly List<User> usersList = new List<User>();
 
         public override Task<GetUsersResponse> GetUsers(Empty request, ServerCallContext context)
