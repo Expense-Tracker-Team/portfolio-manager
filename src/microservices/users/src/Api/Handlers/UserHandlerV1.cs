@@ -8,22 +8,27 @@ namespace Api
     using Google.Protobuf.WellKnownTypes;
     using Grpc.Core;
     using Microsoft.Extensions.Logging;
-    using Serilog;
-    using Serilog.Context;
-    
+
     public class UserHandlerV1 : Users.UsersBase
     {
-        private ILogger<UserHandlerV1> logger;
+        private readonly ILogger<UserHandlerV1> logger;
 
-        public UserHandlerV1(ILogger<UserHandlerV1> logger){
+        public UserHandlerV1(ILogger<UserHandlerV1> logger)
+        {
             this.logger = logger;
         }
+
         private static readonly List<User> usersList = new List<User>();
 
         public override Task<GetUsersResponse> GetUsers(Empty request, ServerCallContext context)
         {
             var response = new GetUsersResponse();
             response.Users.AddRange(usersList);
+
+            if (usersList.Count == 0)
+            {
+                this.logger.LogError("I'm sorry! There should be some users here.");
+            }
 
             return Task.FromResult(response);
         }
