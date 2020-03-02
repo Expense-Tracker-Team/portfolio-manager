@@ -1,0 +1,8 @@
+receivers:
+
+  # - name: 'email'
+  #   email_configs:
+  #   - to: 'dermendzhiev.n@gmail.com' 
+  #     from: 'prometheus@portfolio-manager.com'
+  #     require_tls: false
+  #     send_resolved: true
