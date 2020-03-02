@@ -1,6 +1,5 @@
 namespace Api
 {
-    using System;
     using Api.Interceptors;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -13,25 +12,14 @@ namespace Api
     using Prometheus;
 
     using Serilog;
-    using Serilog.Events;
-    using Serilog.Sinks.Elasticsearch;
 
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            // Create Serilog Elasticsearch logger
             Log.Logger = new LoggerConfiguration()
-               .Enrich.FromLogContext()
-               .MinimumLevel.Debug()
-               .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
-               {
-                   MinimumLogEventLevel = LogEventLevel.Verbose,
-                   AutoRegisterTemplate = true
-               })
-               .WriteTo.Console()
-               .CreateLogger();
-            
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
 
             this.Configuration = configuration;
         }
@@ -66,7 +54,6 @@ namespace Api
             }
 
             app.UseSerilogRequestLogging();
-
             app.UseRouting();
             app.UseHttpMetrics();
 
