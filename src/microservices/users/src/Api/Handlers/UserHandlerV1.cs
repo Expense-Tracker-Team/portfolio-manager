@@ -25,11 +25,6 @@ namespace Api
             var response = new GetUsersResponse();
             response.Users.AddRange(usersList);
 
-            if (usersList.Count == 0)
-            {
-                this.logger.LogError("I'm sorry! There should be some users here.");
-            }
-
             return Task.FromResult(response);
         }
 
