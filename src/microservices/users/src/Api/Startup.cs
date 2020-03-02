@@ -53,7 +53,6 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
             app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseHttpMetrics();
