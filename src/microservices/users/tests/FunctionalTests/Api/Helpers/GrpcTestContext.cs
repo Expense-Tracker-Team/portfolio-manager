@@ -24,10 +24,7 @@
             // Log using the passed in execution context.
             // In the case of NUnit, console output is only captured by the test
             // if it is written in the test's execution context.
-            ExecutionContext.Run(this.executionContext, s =>
-            {
-                Console.WriteLine($"{this.stopwatch.Elapsed.TotalSeconds:N3}s {category} - {logLevel}: {message}");
-            }, null);
+            ExecutionContext.Run(this.executionContext, s => Console.WriteLine($"{this.stopwatch.Elapsed.TotalSeconds:N3}s {category} - {logLevel}: {message}"), null);
         }
 
         public void Dispose()
