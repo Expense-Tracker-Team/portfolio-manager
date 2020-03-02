@@ -1,0 +1,17 @@
+version: '3.7'
+
+services: 
+    users-service:
+        image: users-service
+        restart: always
+        build:
+            context: .
+            dockerfile: src/microservices/users/src/Api/Dockerfile
+        networks:
+            - portfolio-manager
+
+
+networks:
+    portfolio-manager:
+        name: portfolio-manager-network
+        external: true
