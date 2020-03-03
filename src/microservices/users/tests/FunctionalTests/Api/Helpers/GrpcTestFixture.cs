@@ -25,10 +25,7 @@
         public GrpcTestFixture(Action<IServiceCollection>? initialConfigureServices)
         {
             this.LoggerFactory = new LoggerFactory();
-            this.LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) =>
-            {
-                LoggedMessage?.Invoke(logLevel, category, eventId, message, exception);
-            }));
+            this.LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) => LoggedMessage?.Invoke(logLevel, category, eventId, message, exception)));
 
             IHostBuilder builder = new HostBuilder()
                 .ConfigureServices(services =>

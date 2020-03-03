@@ -1,0 +1,63 @@
+global:
+
+  # How frequently to scrape targets by default.
+  scrape_interval:     15s
+
+  # How long until a scrape request times out.
+  evaluation_interval: 30s
+
+  # scrape_timeout is set to the global default (10s).
+
+  # The labels to add to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: codelab
+    foo:     bar
+
+# Load and evaluate rules in this file every 'evaluation_interval' seconds.
+rule_files:
+  - 'alert.rules'
+  # - "first.rules"
+  # - "second.rules"
+  
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager:9093"
+      
+# A list of scrape configurations.
+scrape_configs:
+
+  # The job name assigned to scraped metrics by default.
+  - job_name: prometheus
+
+    honor_labels: true
+    # scrape_interval is defined by the configured global (15s).
+    # scrape_timeout is defined by the global default (10s).
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['localhost:9090']
+      labels:
+        my:   label
+        your: label
+
+  - job_name: 'users-service'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['users-service:80']
+
+  - job_name: 'node-exporter'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['node-exporter:9100']
