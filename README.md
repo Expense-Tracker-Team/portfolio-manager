@@ -6,6 +6,8 @@ Financial portfolio management system based on microservices architecture.
 [](https://media.giphy.com/media/ND6xkVPaj8tHO/giphy.gif)
 
 ## Prerequisites
+
+### Installation
 - You will need [Docker Compose](https://docs.docker.com/compose/install/) installed
 - For local development:
   - [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
@@ -18,8 +20,9 @@ Financial portfolio management system based on microservices architecture.
 - Monitoring with [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/)
 - Logging with [Elastic Stack](https://www.elastic.co/)
 
-## How to run the project
+## Getting started
 
+### How to run the project
 You can run the services by executing `docker-compose` command:
 ```docker
 docker-compose -f docker.compose.yml -f docker.compose.dev.yml up
@@ -27,10 +30,11 @@ docker-compose -f docker.compose.yml -f docker.compose.dev.yml up
 
 ### External dependencies
 After running the services, some of them might not function correctly as they are using external tools for logging, monitoring, etc.
+
 You can find all external dependencies inside folder [/compose](/compose) where you can start them by using `docker-compose`.
 
 ### Services
-The `docker-compose.yml` file contains configuration for the following services:
+The `docker-compose.yml` file will start the following services:
 - [users-service](src/microservices/users) which runs on http://localhost:5000/. The service is handling CRUD operations for users in the system.
 
 ## Contributors
