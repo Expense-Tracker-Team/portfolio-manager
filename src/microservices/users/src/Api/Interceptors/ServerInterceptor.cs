@@ -22,6 +22,8 @@
         {
             using (this.metricsRegistry.HistogramGrpcCallsDuration())
             {
+                this.metricsRegistry.CountGrpcCalls();
+
                 try
                 {
                     TResponse response = await base.UnaryServerHandler(request, context, continuation);
