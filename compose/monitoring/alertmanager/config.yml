@@ -1,8 +1,13 @@
-receivers:
+# Sample configuration template for alerting in Slack
 
-  # - name: 'email'
-  #   email_configs:
-  #   - to: 'dermendzhiev.n@gmail.com' 
-  #     from: 'prometheus@portfolio-manager.com'
-  #     require_tls: false
-  #     send_resolved: true
+# route:
+#     receiver: 'slack'
+
+# receivers:
+#     - name: 'slack'
+#       slack_configs:
+#           - send_resolved: true
+#             text: "{{ .CommonAnnotations.description }}"
+#             username: 'Prometheus'
+#             channel: '#<channel-name>'
+#             api_url: 'https://hooks.slack.com/services/<webhook-id>'

@@ -7,16 +7,5 @@ services:
         ports: 
             - "5000:80"
         environment:      
-            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
             - ASPNETCORE_URLS=http://*:80
-        # volumes:
-        #     - "localnuget:/root/.nuget/packages"
-
-# only if you want to mount nuget packages path to save restore packages time on Windows
-# volumes:
-#     localnuget:
-#       driver: local
-#       driver_opts:
-#         o: bind
-#         type: none
-#         device: ${LOCAL_NUGET_PATH}
