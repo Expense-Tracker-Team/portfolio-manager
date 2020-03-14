@@ -9,6 +9,7 @@ networks:
   back-tier:
   portfolio-manager:
       name: portfolio-manager-network
+      external: true
 
 services:
 
@@ -33,10 +34,6 @@ services:
       - portfolio-manager
       - back-tier
     restart: always
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
 
 # Prometheus exporter for hardware and OS metrics
   node-exporter:
@@ -72,10 +69,6 @@ services:
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
 
 # Analyzer of resource usage and performance characteristics of running containers. 
   cadvisor:

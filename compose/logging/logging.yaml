@@ -10,7 +10,7 @@ services:
    volumes:
     - elasticsearch-data:/usr/share/elasticsearch/data
    networks:
-    - docker-network
+    - portfolio-manager
 
   kibana:
    image: docker.elastic.co/kibana/kibana:6.2.4
@@ -20,11 +20,12 @@ services:
    depends_on:
     - elasticsearch
    networks:
-    - docker-network
+    - portfolio-manager
   
 networks:
-  docker-network:
-    driver: bridge
+  portfolio-manager:
+      name: portfolio-manager-network
+      external: true
 
 volumes:
   elasticsearch-data:

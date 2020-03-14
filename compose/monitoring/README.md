@@ -7,7 +7,7 @@ In order to support monitoring and alerting on our services, we are using [Prome
 
 You can start all tools by running the following command:
 ```docker
-docker-compose up
+docker-compose -f monitoring.yml up
 ```
 
 ### Services
