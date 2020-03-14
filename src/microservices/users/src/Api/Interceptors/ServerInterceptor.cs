@@ -24,6 +24,14 @@
             {
                 this.metricsRegistry.CountGrpcCalls(context.Method);
 
+            this.logger.LogInformation("Unary GRPC call. " +
+                "Method: {Method}. " +
+                "Request: {RequestType}. " +
+                "Request data: {@RequestData} " +
+                "Response: {ResponseType}. ", context.Method, typeof(TRequest), request, typeof(TResponse));
+
+            using (this.metricsRegistry.HistogramGrpcCallsDuration())
+            {
                 try
                 {
                     TResponse response = await base.UnaryServerHandler(request, context, continuation);
@@ -35,13 +43,13 @@
                     this.metricsRegistry.CountFailedGrpcCalls(context.Method);
 
                     // TODO: Add RequestHeaders
-                    this.logger.LogError($"" +
-                        $"GRPC call exception. " +
-                        $"Type: {context.Method}. " +
-                        $"Request: {typeof(TRequest)}. " +
-                        $"Response: {typeof(TResponse)}. " +
-                        $"Status code: {context.Status.StatusCode} " +
-                        $"Exception message: {ex.Message}");
+                    this.logger.LogError("Unary GRPC call exception. " +
+                        "Method: {Method}. " +
+                        "Request: {RequestType}. " +
+                        "Request data: {@RequestData}" +
+                        "Response: {ResponseType}. " +
+                        "Status code: {StatusCode} " +
+                        "Exception message: {@Exception}", context.Method, typeof(TRequest), request, typeof(TResponse), context.Status.StatusCode, ex);
 
                     if (ex is RpcException)
                     {
