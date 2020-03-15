@@ -1,16 +1,24 @@
 ﻿namespace Api.Interceptors
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Api.Constants;
     using Application.Interfaces.Infrastructure.Metrics;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using Microsoft.Extensions.Logging;
+    using Serilog.Context;
 
     public class ServerInterceptor : Interceptor
     {
         private readonly ILogger<ServerInterceptor> logger;
         private readonly IMetricsRegistry metricsRegistry;
+
+        // TODO: Consider logging sensitive data -> {request}
+        // TODO: Add RequestHeaders
+        private const string InformationLogTemplate = "Unary GRPC call to {Method} with {RequestType}, {@RequestData} and {ResponseType}";
+        private const string ErrorLogTemplate = "Unary GRPC call exception to {Method} with {RequestType}, {@RequestData} and {ResponseType} throws {@Exception} and has {StatusCode}";
 
         public ServerInterceptor(ILogger<ServerInterceptor> logger, IMetricsRegistry metricsRegistry)
         {
@@ -20,43 +28,37 @@
 
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
         {
+            this.metricsRegistry.CountGrpcCalls(context.Method);
+
+            var correlationId = context.RequestHeaders.FirstOrDefault(h => h.Key.Equals(GrpcMetadata.CorrelationIdRequestHeaderKey, StringComparison.OrdinalIgnoreCase))?.Value;
+            if (string.IsNullOrEmpty(correlationId))
+            {
+                correlationId = Guid.NewGuid().ToString();
+            }
+
             using (this.metricsRegistry.HistogramGrpcCallsDuration())
             {
-                this.metricsRegistry.CountGrpcCalls(context.Method);
-
-            this.logger.LogInformation("Unary GRPC call. " +
-                "Method: {Method}. " +
-                "Request: {RequestType}. " +
-                "Request data: {@RequestData} " +
-                "Response: {ResponseType}. ", context.Method, typeof(TRequest), request, typeof(TResponse));
-
-            using (this.metricsRegistry.HistogramGrpcCallsDuration())
-            {
-                try
+                using (LogContext.PushProperty(SerilogCustomProperties.CorrelationId, correlationId))
                 {
-                    TResponse response = await base.UnaryServerHandler(request, context, continuation);
-                    this.metricsRegistry.CountSuccessGrpcCalls(context.Method);
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    this.metricsRegistry.CountFailedGrpcCalls(context.Method);
+                    this.logger.LogInformation(InformationLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse));
 
-                    // TODO: Add RequestHeaders
-                    this.logger.LogError("Unary GRPC call exception. " +
-                        "Method: {Method}. " +
-                        "Request: {RequestType}. " +
-                        "Request data: {@RequestData}" +
-                        "Response: {ResponseType}. " +
-                        "Status code: {StatusCode} " +
-                        "Exception message: {@Exception}", context.Method, typeof(TRequest), request, typeof(TResponse), context.Status.StatusCode, ex);
-
-                    if (ex is RpcException)
+                    try
                     {
-                        throw;
+                        TResponse response = await base.UnaryServerHandler(request, context, continuation);
+                        return response;
                     }
+                    catch (Exception ex)
+                    {
+                        this.metricsRegistry.CountFailedGrpcCalls(context.Method);
+                        this.logger.LogError(ErrorLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse), ex, context.Status.StatusCode);
 
-                    throw new RpcException(new Status(StatusCode.Internal, string.Empty));
+                        if (ex is RpcException)
+                        {
+                            throw;
+                        }
+
+                        throw new RpcException(new Status(StatusCode.Internal, string.Empty));
+                    }
                 }
             }
         }
