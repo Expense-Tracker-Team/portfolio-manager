@@ -18,7 +18,7 @@ None
 ### Running
 
 ```bash
-docker-compose up
+docker-compose -f logging.yaml up
 ```
 
 This should service **Elastic Search on port 9200** and **Kibana on 5601**.
