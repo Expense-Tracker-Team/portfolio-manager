@@ -1,15 +1,14 @@
 
 # Tracing
 
-# Logging
-
 ## Summary
 
-- We are using Jaeger for tracing requests between services.
+- We are using [Jaeger](https://www.jaegertracing.io/) for tracing requests between services.
 
 ## Prerequisites
 
-- You should be familiar with what Jeager is and how it operates.
+- You should be familiar with what [Jaeger](https://www.jaegertracing.io/) is and how it operates.
+- You should be familiar with the [OpenTracing](https://opentracing.io/) standard
 
 ## Installation
 
@@ -19,10 +18,10 @@ None
 
 ### Running
 
-The following command will run dev env of Jaeger (not dockerized yet)
+The following command will run dev env of Jaeger
 
 ```Bash
-docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:latest
+docker-compose up
 ```
 
 This should service **Jaeger UI on port 16686**.
