@@ -17,6 +17,8 @@
     <PackageReference Include="prometheus-net.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.26.0" />
     <PackageReference Include="prometheus-net.DotNetRuntime" Version="3.3.1" />
+    <PackageReference Include="Jaeger" Version="0.3.6"/>
+    <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.6.2"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />

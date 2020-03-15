@@ -1,6 +1,6 @@
 version: '3.7'
 
-services: 
+services:
     users-service:
         image: users-service
         restart: always
@@ -9,7 +9,11 @@ services:
             dockerfile: src/microservices/users/src/Api/Dockerfile
         networks:
             - portfolio-manager
-
+        environment:
+            - JAEGER_SERVICE_NAME=users
+            - JAEGER_AGENT_HOST=jaeger
+            - JAEGER_AGENT_PORT=6831
+            - JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger:5778
 
 networks:
     portfolio-manager:
