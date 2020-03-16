@@ -32,15 +32,15 @@
             if (string.IsNullOrEmpty(correlationId))
             {
                 correlationId = Guid.NewGuid().ToString();
-            }
+            } 
 
             using (this.metricsRegistry.HistogramGrpcCallsDuration())
             {
                 using (LogContext.PushProperty(SerilogCustomProperties.CorrelationId, correlationId))
                 {
                     this.logger.LogInformation(InformationLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse));
-
                     var statusCode = context.Status.StatusCode;
+                    
                     try
                     {
                         TResponse response = await base.UnaryServerHandler(request, context, continuation);
