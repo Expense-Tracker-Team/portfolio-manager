@@ -2,9 +2,11 @@ namespace Application.Interfaces.Infrastructure.Metrics
 {
     public interface IMetricsRegistry
     {
-        void CountGrpcCalls();
+        void CountGrpcCalls(string method);
 
-        void CountFailedGrpcCalls();
+        void CountFailedGrpcCalls(string method);
+
+        void CountSuccessGrpcCalls(string method);
 
         IMetricTimer HistogramGrpcCallsDuration();
     }
