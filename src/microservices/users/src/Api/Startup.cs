@@ -2,7 +2,10 @@ namespace Api
 {
     using System;
     using System.Threading.Tasks;
+    using System.Reflection;
     using Api.Interceptors;
+    using Jaeger;
+    using Jaeger.Samplers;
     using Application.Interfaces.Infrastructure.Metrics;
     using Infrastructure.Metrics;
     using Microsoft.AspNetCore.Builder;
@@ -12,10 +15,12 @@ namespace Api
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-
+    using OpenTracing;
+    using OpenTracing.Util;
     using Prometheus;
     using Prometheus.DotNetRuntime;
     using Serilog;
+    using Jaeger.Reporters;
 
     public class Startup
     {
@@ -34,8 +39,34 @@ namespace Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            this.ConfigureLoggingServices(services);
+            this.ConfigureGrpcServices(services);
+            this.ConfigureTracingServices(services);
+        }
 
+        // This method configures the logging fo the application using Serilog
+        public void ConfigureLoggingServices(IServiceCollection services)
+        {
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+        }
+
+        public void ConfigureTracingServices(IServiceCollection services)
+        {
+            services.AddSingleton<ITracer>(serviceProvider =>
+            {
+                ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+                var config = Jaeger.Configuration.FromEnv(loggerFactory);
+                ITracer tracer = config.GetTracer();
+                GlobalTracer.Register(tracer);
+
+                return tracer;
+            });
+
+            services.AddOpenTracing();
+        }
+
+        public void ConfigureGrpcServices(IServiceCollection services)
+        {
             services.AddGrpc(options =>
             {
                 options.Interceptors.Add<ServerInterceptor>();
