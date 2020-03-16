@@ -33,6 +33,12 @@ You can run the services by executing `docker-compose` command:
 docker-compose -f docker.compose.yml -f docker.compose.dev.yml up
 ```
 
+**Note that this will not rebuild the solution if there are any changes. Rebuild with**
+
+```docker
+docker-compose build
+```
+
 ### External dependencies
 
 After running the services, some of them might not function correctly as they are using external tools for logging, monitoring, etc.
