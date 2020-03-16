@@ -28,8 +28,6 @@
 
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
         {
-            this.metricsRegistry.CountGrpcCalls(context.Method);
-
             var correlationId = context.RequestHeaders.FirstOrDefault(h => h.Key.Equals(GrpcMetadata.CorrelationIdRequestHeaderKey, StringComparison.OrdinalIgnoreCase))?.Value;
             if (string.IsNullOrEmpty(correlationId))
             {
@@ -42,9 +40,11 @@
                 {
                     this.logger.LogInformation(InformationLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse));
 
+                    var statusCode = context.Status.StatusCode;
                     try
                     {
                         TResponse response = await base.UnaryServerHandler(request, context, continuation);
+                        this.metricsRegistry.CountSuccessGrpcCalls(context.Method);
                         return response;
                     }
                     catch (Exception ex)
@@ -54,12 +54,19 @@
 
                         if (ex is RpcException)
                         {
+                            statusCode = ((RpcException)ex).Status.StatusCode;
                             throw;
                         }
 
+                        statusCode = StatusCode.Internal;
                         throw new RpcException(new Status(StatusCode.Internal, string.Empty));
                     }
+                    finally
+                    {
+                        this.metricsRegistry.CountGrpcCalls(context.Method, statusCode.ToString());
+                    }
                 }
+
             }
         }
     }

@@ -108,7 +108,7 @@ namespace Api
 
                     using (metricsRegistry.HistogramGrpcCallsDuration())
                     {
-                        metricsRegistry.CountGrpcCalls("GET /");
+                        metricsRegistry.CountGrpcCalls("GET /", "OK");
 
                         var random = new Random();
                         if (random.Next(0, 2) == 0)
