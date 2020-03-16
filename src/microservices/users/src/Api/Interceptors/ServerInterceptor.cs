@@ -22,16 +22,17 @@
         {
             using (this.metricsRegistry.HistogramGrpcCallsDuration())
             {
-                this.metricsRegistry.CountGrpcCalls();
+                this.metricsRegistry.CountGrpcCalls(context.Method);
 
                 try
                 {
                     TResponse response = await base.UnaryServerHandler(request, context, continuation);
+                    this.metricsRegistry.CountSuccessGrpcCalls(context.Method);
                     return response;
                 }
                 catch (Exception ex)
                 {
-                    this.metricsRegistry.CountFailedGrpcCalls();
+                    this.metricsRegistry.CountFailedGrpcCalls(context.Method);
 
                     // TODO: Add RequestHeaders
                     this.logger.LogError($"" +
@@ -48,10 +49,6 @@
                     }
 
                     throw new RpcException(new Status(StatusCode.Internal, string.Empty));
-                }
-                finally
-                {
-                    this.metricsRegistry.CountGrpcCalls();
                 }
             }
         }

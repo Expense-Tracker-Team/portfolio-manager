@@ -108,12 +108,12 @@ namespace Api
 
                     using (metricsRegistry.HistogramGrpcCallsDuration())
                     {
-                        metricsRegistry.CountGrpcCalls();
+                        metricsRegistry.CountGrpcCalls("GET /");
 
                         var random = new Random();
                         if (random.Next(0, 2) == 0)
                         {
-                            metricsRegistry.CountFailedGrpcCalls();
+                            metricsRegistry.CountFailedGrpcCalls("GET /");
                         }
 
                         var delayMilliseconds = random.Next(0, 2000);
