@@ -1,0 +1,7 @@
+---
+## Kibana yml configuration
+## https://github.com/elastic/kibana/blob/master/config/kibana.yml
+#
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
