@@ -30,7 +30,7 @@ Financial portfolio management system based on microservices architecture.
 You can run the services by executing `docker-compose` command:
 
 ```docker
-docker-compose -f docker.compose.yml -f docker.compose.dev.yml up
+docker-compose -f docker.compose.yaml -f docker.compose.dev.yaml up
 ```
 
 **Note that this will not rebuild the solution if there are any changes. Rebuild with**
@@ -47,7 +47,7 @@ You can find all external dependencies inside folder [/compose](/compose) where 
 
 ### Services
 
-The `docker-compose.yml` file will start the following services:
+The `docker-compose.yaml` file will start the following services:
 - [users-service](src/microservices/users) which runs on http://localhost:5000/. The service is handling CRUD operations for users in the system.
 
 ## Contributors
