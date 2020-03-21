@@ -35,3 +35,26 @@ In order to entirely shutdown the containers and remove all persisted data, use 
 ```docker
 docker-compose down -v
 ```
+
+## For future better scaling and resiliency
+
+### Persistent queues in Logstash
+By default, Logstash uses in-memory bounded queues between pipeline stages (inputs → pipeline workers) to buffer events. If Logstash experiences a temporary machine failure, the contents of the in-memory queue will be lost. Temporary machine failures are scenarios where Logstash or its host machine are terminated abnormally but are capable of being restarted.
+
+In order to protect against data loss during abnormal termination, Logstash has a persistent queue feature which will store the message queue on disk. Persistent queues provide durability of data within Logstash.
+
+Read more about persistent queue [here](https://www.elastic.co/guide/en/logstash/current/persistent-queues.html) but be aware of the [limitations](https://www.elastic.co/guide/en/logstash/current/persistent-queues.html#persistent-queues-limitations) as well.
+
+### Using buffer for Logstash
+Common architectural pattern suggest using buffer/broker like Redis or Kafka between data shippers and Logstash server which can provide better resilliency. If Logstash server is not responding, messages will be kept by the broker.
+
+![architecture diagram](https://aboullaite.me/content/images/2017/09/shecma.jpg)
+
+### Write Logs to Local Storage
+Writing logs to local storage might sound contradictory, but sending logs directly via an HTTP request might cause too much outbound network traffic. Elastic Stack provides lightweight data shippers called [Beats](https://www.elastic.co/beats/), which can be used to send logs from local storage/file to a buffer or Logstash directly. Consider checking [Filebeat](https://www.elastic.co/beats/filebeat) when writing logs to a local files.
+
+
+### More resources on scalability and resiliency:
+- [Logstash Scalability](https://www.elastic.co/guide/en/logstash/current/deploying-and-scaling.html#_scalability)
+- Suggested deployment of the Elastic Stack:
+![architecture diagram](https://dzone.com/storage/temp/8347294-deployment-architecture.jpg)
