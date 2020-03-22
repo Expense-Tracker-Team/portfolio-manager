@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "Api.Protos";
+
+import "google/protobuf/empty.proto";
+
+package users.v1;
+
+service Users {
+	rpc GetUsers(google.protobuf.Empty) returns (GetUsersResponse);
+	rpc GetUserAsyncStream(google.protobuf.Empty) returns (stream GetUserStreamResponse);
+	rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+	rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+	rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+	rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+message GetUsersResponse {
+	repeated User users = 1;
+}
+
+message GetUserStreamResponse {
+	User user = 1;
+}
+
+message GetUserByIdRequest {
+	string uuid = 1;
+}
+
+message GetUserByIdResponse {
+	User user = 1;
+}
+
+message CreateUserRequest {
+	string email = 1;
+	string name = 2;
+	string phone_number = 3;
+}
+
+message CreateUserResponse {
+	User user = 1;
+}
+
+message UpdateUserRequest {
+	string uuid = 1;
+	string email = 2;
+	string name = 3;
+	string phone_number = 4;
+}
+
+message UpdateUserResponse {
+	User user = 1;
+}
+
+message DeleteUserRequest {
+	string uuid = 1;
+}
+
+message DeleteUserResponse {
+	User user = 1;
+}
+
+message User {
+	string uuid = 1;
+	string email = 2;
+	string name = 3;
+	string phone_number = 4;
+}
