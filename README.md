@@ -19,9 +19,10 @@ Financial portfolio management system based on microservices architecture.
 
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - [ASP.NET Core 3.1](https://docs.microsoft.com/en-us/aspnet/?view=aspnetcore-3.1#pivot=core)
-- [gRPC](https://grpc.io/) for inter-service communication
+- [gRPC](https://grpc.io/) for internal service communication
 - Monitoring with [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/)
 - Logging with [Elastic Stack](https://www.elastic.co/)
+- Tracing with [Jaeger](https://www.jaegertracing.io/)
 
 ## Getting started
 
@@ -52,6 +53,7 @@ The `docker-compose.yml` file will start the following services:
 
 ## Contributors
 
-- [Nikolay Dermendjiev](https://github.com/Dermendzhiev)
+- [Nikolay Dermendzhiev](https://github.com/Dermendzhiev)
 - [Miroslav Stoyanov](https://github.com/MiroslavStoyanov)
 - [Bozhidar Gevechanov](https://github.com/Bojo966)
+- [Alexander Velchev](https://github.com/alvelchev)
