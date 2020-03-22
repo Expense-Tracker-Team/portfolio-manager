@@ -3,7 +3,7 @@
 ## Summary
 
 - We are using the [Elastic stack](https://www.elastic.co/webinars/introduction-elk-stack) for logging, indexing and visualization.
-- Probably the best source of truth here should be the docker-compose file `logging.yaml` 
+- Probably the best source of truth here should be the docker-compose file
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@
 ### Running
 
 ```bash
-docker-compose -f logging.yaml up
+docker-compose up
 ```
 
 Now you are able to run your app locally and if it write logs to the logstash you should be able to see them in the [localhost Kibana dashboard](http://localhost:5601/).
