@@ -32,7 +32,7 @@ Executing `docker-compose` command will start the following services:
 
 ### Cleanup
 In order to entirely shutdown the containers and remove all persisted data, use the following command:
-```docker
+```bash
 docker-compose down -v
 ```
 
