@@ -13,7 +13,7 @@
 
 ### Running
 
-```docker
+```bash
 docker-compose -f logging.yaml up
 ```
 
