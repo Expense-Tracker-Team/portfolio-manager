@@ -22,6 +22,7 @@ Financial portfolio management system based on microservices architecture.
 - [gRPC](https://grpc.io/) for inter-service communication
 - Monitoring with [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/)
 - Logging with [Elastic Stack](https://www.elastic.co/)
+- Tracing with [Jaeger](https://www.jaegertracing.io/)
 
 ## Getting started
 
@@ -52,6 +53,7 @@ The `docker-compose.yml` file will start the following services:
 
 ## Contributors
 
-- [Nikolay Dermendjiev](https://github.com/Dermendzhiev)
+- [Nikolay Dermendzhiev](https://github.com/Dermendzhiev)
 - [Miroslav Stoyanov](https://github.com/MiroslavStoyanov)
 - [Bozhidar Gevechanov](https://github.com/Bojo966)
+- [Alexander Velchev](https://github.com/alvelchev)
