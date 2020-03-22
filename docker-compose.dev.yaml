@@ -1,4 +1,4 @@
-# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d
 
 version: '3.7'
 
