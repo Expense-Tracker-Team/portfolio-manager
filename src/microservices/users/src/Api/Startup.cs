@@ -52,17 +52,17 @@ namespace Api
 
         public void ConfigureTracingServices(IServiceCollection services)
         {
-            // services.AddSingleton<ITracer>(serviceProvider =>
-            // {
-            //     ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-            //     var config = Jaeger.Configuration.FromEnv(loggerFactory);
-            //     ITracer tracer = config.GetTracer();
-            //     GlobalTracer.Register(tracer);
+            services.AddSingleton<ITracer>(serviceProvider =>
+            {
+                ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+                var config = Jaeger.Configuration.FromEnv(loggerFactory);
+                ITracer tracer = config.GetTracer();
+                GlobalTracer.Register(tracer);
 
-            //     return tracer;
-            // });
+                return tracer;
+            });
 
-            // services.AddOpenTracing();
+            services.AddOpenTracing();
         }
 
         public void ConfigureGrpcServices(IServiceCollection services)
