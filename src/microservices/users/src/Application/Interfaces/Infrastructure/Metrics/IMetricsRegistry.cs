@@ -2,7 +2,7 @@ namespace Application.Interfaces.Infrastructure.Metrics
 {
     public interface IMetricsRegistry
     {
-        void CountGrpcCalls(string method);
+        void CountGrpcCalls(string method, string statusCode);
 
         void CountFailedGrpcCalls(string method);
 

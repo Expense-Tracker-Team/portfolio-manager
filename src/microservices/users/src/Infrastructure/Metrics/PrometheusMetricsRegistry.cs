@@ -9,7 +9,8 @@
         private static readonly Counter GrpcCallsCount = Metrics.CreateCounter("grpc_calls_total", "Number of gRPC calls.", new CounterConfiguration
         {
             LabelNames = new[] {
-                "method"
+                "method",
+                "status_code"
             }
         });
 
@@ -29,7 +30,7 @@
 
         private static readonly Histogram GrpcCallsDuration = Metrics.CreateHistogram("grpc_call_duration_milliseconds", "Histogram of gRPC calls processing durations.");
 
-        public void CountGrpcCalls(string method) => GrpcCallsCount.WithLabels(method).Inc();
+        public void CountGrpcCalls(string method, string statusCode) => GrpcCallsCount.WithLabels(method, statusCode).Inc();
 
         public void CountSuccessGrpcCalls(string method) => GrpcSuccessCallsCount.WithLabels(method).Inc();
 
