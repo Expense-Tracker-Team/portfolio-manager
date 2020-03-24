@@ -30,13 +30,13 @@ Financial portfolio management system based on microservices architecture.
 
 You can run the services by executing `docker-compose` command:
 
-```docker
+```bash
 docker-compose -f docker.compose.yaml -f docker.compose.dev.yaml up
 ```
 
 **Note that this will not rebuild the solution if there are any changes. Rebuild with**
 
-```docker
+```bash
 docker-compose build
 ```
 
