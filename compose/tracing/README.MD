@@ -26,16 +26,7 @@ docker-compose up
 
 This should service **Jaeger UI on port 16686**.
 
-### Testing
+### Monitoring
 
-#### Local testing
-
-- Go to <http://localhost:16686/>
-
-#### Integration testing
-
-TODO: TBD
-
-## Deployment
-
-TODO: TBD
+Monitoring of the metrics exposed from Jaeger is done in Grafana. There is a dashboard Jaeger that gives a general overview of the the services and their performance and correctness.
+The dashboard is mainly reused from the [one here found here](https://github.com/jaegertracing/jaeger/blob/master/monitoring/jaeger-mixin/README.md).
