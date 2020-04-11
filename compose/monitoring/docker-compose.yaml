@@ -104,3 +104,11 @@ services:
       - back-tier
       - front-tier
     restart: always
+  
+  promteams:
+    image: quay.io/prometheusmsteams/prometheus-msteams
+    ports:
+      - 2000:2000
+    environment:
+      - TEAMS_INCOMING_WEBHOOK_URL=https://outlook.office.com/webhook/79c0ed92-c21a-448d-96c7-360a3dc92d7b@4cf8f82b-eeba-4af4-aedd-1fc6941b430b/IncomingWebhook/e5ba7e0dbf52490d823e4ba64c4726b0/39b32414-8cfc-42d6-9003-88421363a476
+      - TEAMS_REQUEST_URI=alertmanager
