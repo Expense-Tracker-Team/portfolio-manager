@@ -1,0 +1,12 @@
+# Uncomment this content if you want a sample alert in alertmanager
+
+# groups:
+# - name: Users service
+#   rules:
+#   - alert: HighRequestLatency
+#     expr: sum(rate(grpc_calls_total[1m])) < 3
+#     for: 2m
+#     labels:
+#       severity: page
+#     annotations:
+#       summary: High request latency

@@ -1,13 +1,15 @@
-# Sample configuration template for alerting in Slack
+global:
 
-# route:
-#     receiver: 'slack'
+route:
+  group_by: ['alertname']
+  group_interval: 30s
+  repeat_interval: 30s
+  group_wait: 30s
+  receiver: 'prometheus-msteams'
 
-# receivers:
-#     - name: 'slack'
-#       slack_configs:
-#           - send_resolved: true
-#             text: "{{ .CommonAnnotations.description }}"
-#             username: 'Prometheus'
-#             channel: '#<channel-name>'
-#             api_url: 'https://hooks.slack.com/services/<webhook-id>'
+receivers:
+- name: 'prometheus-msteams'
+  webhook_configs:
+  - send_resolved: true
+    http_config: {}
+    url: 'http://promteams:2000/alertmanager'
