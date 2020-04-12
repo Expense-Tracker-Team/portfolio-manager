@@ -2,12 +2,7 @@ namespace Api
 {
     using System;
     using System.Threading.Tasks;
-    using System.Reflection;
-    using Api.Interceptors;
-    using Jaeger;
-    using Jaeger.Samplers;
     using Application.Interfaces.Infrastructure.Metrics;
-    using Infrastructure.Metrics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -15,12 +10,11 @@ namespace Api
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using OpenTracing;
-    using OpenTracing.Util;
     using Prometheus;
-    using Prometheus.DotNetRuntime;
     using Serilog;
-    using Jaeger.Reporters;
+    using Api.Config.Jaeger;
+    using Infrastructure.Metrics;
+    using Api.Interceptors;
 
     public class Startup
     {
@@ -41,28 +35,13 @@ namespace Api
         {
             this.ConfigureLoggingServices(services);
             this.ConfigureGrpcServices(services);
-            this.ConfigureTracingServices(services);
+            services.ConfigureTracingServices();
         }
 
         // This method configures the logging fo the application using Serilog
         public void ConfigureLoggingServices(IServiceCollection services)
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
-        }
-
-        public void ConfigureTracingServices(IServiceCollection services)
-        {
-            services.AddSingleton<ITracer>(serviceProvider =>
-            {
-                ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-                var config = Jaeger.Configuration.FromEnv(loggerFactory);
-                ITracer tracer = config.GetTracer();
-                GlobalTracer.Register(tracer);
-
-                return tracer;
-            });
-
-            services.AddOpenTracing();
         }
 
         public void ConfigureGrpcServices(IServiceCollection services)

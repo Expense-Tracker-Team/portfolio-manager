@@ -24,7 +24,14 @@ The following command will run dev env of Jaeger
 docker-compose up
 ```
 
-This should service **Jaeger UI on port 16686**.
+You can then navigate to http://localhost:16686 to access the Jaeger UI.
+
+The container exposes the following ports:
+|   Port    |   Protocol   | Component | Function                                              |
+|:---------:|:------------:|:---------:| ----------------------------------------------------- |
+|   6831    |     UDP      |   agent   | accept `jaeger.thrift` over compact thrift protocol   |
+|   5778    |     HTTP     |   agent   | serve configs                                         |
+|   16686   |     HTTP     |   query   | serve frontend                                        |
 
 ### Monitoring
 

@@ -10,3 +10,9 @@ services:
         environment:      
             - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
             - ASPNETCORE_URLS=http://*:80
+            - jaeger__enabled=true
+            - jaeger__serviceName=users-service
+            - jaeger__udpHost=jaeger
+            - jaeger__udpPort=6831
+            - jaeger__maxPacketSize=0
+            - jaeger__sampler=const
