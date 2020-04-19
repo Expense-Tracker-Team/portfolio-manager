@@ -11,12 +11,14 @@
     using UnitTests.Api.Helpers;
     using Microsoft.Extensions.Logging;
     using Moq;
+    using Persistence;
 
     public class UserHandlerV1Tests
     {
         private readonly Mock<ILogger<UserHandlerV1>> _mockLogger;
 
-        public UserHandlerV1Tests() {
+        public UserHandlerV1Tests()
+        {
             this._mockLogger = new Mock<ILogger<UserHandlerV1>>();
         }
 
@@ -24,7 +26,7 @@
         public async Task GetUsers_WhenUsersDoNotExist_ShouldReturnEmptyCollection()
         {
             // Arrange
-            var service = new UserHandlerV1(this._mockLogger.Object);
+            var service = new UserHandlerV1(this._mockLogger.Object, null);
 
             // Act
             GetUsersResponse response = await service.GetUsers(new Empty(), TestServerCallContext.Create());
@@ -37,7 +39,7 @@
         public async Task GetUserById_WhenUserDoesNotExist_ShouldThrowRpcException()
         {
             // Arrange
-            var service = new UserHandlerV1(this._mockLogger.Object);
+            var service = new UserHandlerV1(this._mockLogger.Object, null);
 
             string userId = Guid.NewGuid().ToString();
             var request = new GetUserByIdRequest
