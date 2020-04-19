@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myUsr}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supersecretpass}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+      - portfolio-manager
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+      - portfolio-manager
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+  portfolio-manager:
+    name: portfolio-manager-network
+    external: true
+
+volumes:
+    postgres:
+    pgadmin:
+ 
