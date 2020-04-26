@@ -26,4 +26,4 @@ jobs:
     - name: Build
       run: dotnet build src/microservices/users/src/Api/ --configuration Release --no-restore
     - name: Test
-      run: dotnet test src/microservices/users/tests/UnitTests/ --no-restore --verbosity normal
+      run: dotnet test src/microservices/users/tests/UnitTests/ --verbosity normal
