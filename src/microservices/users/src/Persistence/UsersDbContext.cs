@@ -1,8 +1,8 @@
 ﻿namespace Persistence
 {
-    using Domain;
     using Microsoft.EntityFrameworkCore;
     using Persistence.EntityTypeConfigurations;
+    using Persistence.Models;
 
     public class UsersDbContext : DbContext
     {

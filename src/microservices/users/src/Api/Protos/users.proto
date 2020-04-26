@@ -34,11 +34,15 @@ message GetUserByIdResponse {
 message CreateUserRequest {
 	string email = 1;
 	string name = 2;
-	string phone_number = 3;
+	string password = 3;
+	string phone_number = 4;
 }
 
 message CreateUserResponse {
-	User user = 1;
+	string uuid = 1;
+	string email = 2;
+	string name = 3;
+	string phone_number = 4;
 }
 
 message UpdateUserRequest {
@@ -64,5 +68,6 @@ message User {
 	string uuid = 1;
 	string email = 2;
 	string name = 3;
-	string phone_number = 4;
+	string password = 4;
+	string phone_number = 5;
 }

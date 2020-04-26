@@ -11,7 +11,6 @@
     using UnitTests.Api.Helpers;
     using Microsoft.Extensions.Logging;
     using Moq;
-    using Persistence;
 
     public class UserHandlerV1Tests
     {

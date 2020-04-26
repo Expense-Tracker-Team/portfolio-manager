@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Metrics
 {
-    using Application.Interfaces.Infrastructure.Metrics;
+    using Application.Infrastructure.Metrics;
     using Prometheus;
     using System;
     using System.Diagnostics;

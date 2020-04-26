@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Api.Constants;
-    using Application.Interfaces.Infrastructure.Metrics;
+    using Application.Infrastructure.Metrics;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using Microsoft.Extensions.Logging;

@@ -1,4 +1,4 @@
-namespace Application.Interfaces.Infrastructure.Metrics
+namespace Application.Infrastructure.Metrics
 {
     public interface IMetricsRegistry
     {

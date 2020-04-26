@@ -6,10 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Boundaries\" />
-    <Folder Include="Interfaces\Gateways\" />
-    <Folder Include="Services\" />
-    <Folder Include="UseCases\" />
+    <Compile Remove="Boundaries\**" />
+    <Compile Remove="Infrastructure\Gateways\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Boundaries\**" />
+    <EmbeddedResource Remove="Infrastructure\Gateways\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Boundaries\**" />
+    <None Remove="Infrastructure\Gateways\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
