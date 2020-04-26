@@ -8,14 +8,17 @@ namespace Api
     using Google.Protobuf.WellKnownTypes;
     using Grpc.Core;
     using Microsoft.Extensions.Logging;
+    using Persistence;
 
     public class UserHandlerV1 : Users.UsersBase
     {
         private readonly ILogger<UserHandlerV1> logger;
+        private readonly UsersDbContext dbContext;
 
-        public UserHandlerV1(ILogger<UserHandlerV1> logger)
+        public UserHandlerV1(ILogger<UserHandlerV1> logger, UsersDbContext dbContext)
         {
             this.logger = logger;
+            this.dbContext = dbContext;
         }
 
         private static readonly List<User> usersList = new List<User>();
@@ -57,8 +60,17 @@ namespace Api
             return Task.FromResult(response);
         }
 
-        public override Task<CreateUserResponse> CreateUser(CreateUserRequest request, ServerCallContext context)
+        public override async Task<CreateUserResponse> CreateUser(CreateUserRequest request, ServerCallContext context)
         {
+            this.dbContext.Users.Add(new Domain.User
+            {
+                Name = request.Name + Guid.NewGuid(),
+                Email = request.Email,
+                PasswordHash = "secret_password_" + Guid.NewGuid()
+            });
+
+            await this.dbContext.SaveChangesAsync();
+
             var user = new User
             {
                 Uuid = Guid.NewGuid().ToString(),
@@ -74,7 +86,7 @@ namespace Api
                 User = user
             };
 
-            return Task.FromResult(response);
+            return response;
         }
 
         public override Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request, ServerCallContext context) => Task.FromResult(new UpdateUserResponse());

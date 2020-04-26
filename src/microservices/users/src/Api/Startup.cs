@@ -15,6 +15,9 @@ namespace Api
     using Api.Config.Jaeger;
     using Infrastructure.Metrics;
     using Api.Interceptors;
+    using Persistence;
+    using Api.Constants;
+    using Microsoft.EntityFrameworkCore;
 
     public class Startup
     {
@@ -33,9 +36,16 @@ namespace Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            this.ConfigurePostgresDatabaseServices(services);
             this.ConfigureLoggingServices(services);
             this.ConfigureGrpcServices(services);
             services.ConfigureTracingServices();
+        }
+
+        public void ConfigurePostgresDatabaseServices(IServiceCollection services)
+        {
+            services.AddDbContext<UsersDbContext>(options =>
+                    options.UseNpgsql(this.Configuration.GetConnectionString(ApplicationSettingKeys.UsersConnectionKey)));
         }
 
         // This method configures the logging fo the application using Serilog

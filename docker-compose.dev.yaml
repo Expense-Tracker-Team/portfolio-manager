@@ -16,3 +16,4 @@ services:
             - jaeger__udpPort=6831
             - jaeger__maxPacketSize=0
             - jaeger__sampler=const
+            - ConnectionStrings__UsersConnection=User ID=myUsr;Password=supersecretpass;Server=postgres;Port=5432;Database=Users;Integrated Security=true;Pooling=true;
