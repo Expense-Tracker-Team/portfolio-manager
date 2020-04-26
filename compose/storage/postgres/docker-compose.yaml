@@ -32,6 +32,18 @@ services:
       - portfolio-manager
     restart: unless-stopped
 
+  pgexporter:
+    container_name: pgexporter
+    image: wrouesnel/postgres_exporter
+    environment:
+      - DATA_SOURCE_NAME=postgresql://myUsr:supersecretpass@postgres:5432/myUsr?sslmode=disable #BREAK INTO LOWER LEVEL ENV VARS https://github.com/wrouesnel/postgres_exporter
+    ports:
+      - "9187:9187"
+    networks:
+      - postgres
+      - portfolio-manager
+    restart: unless-stopped
+
 networks:
   postgres:
     driver: bridge
@@ -42,4 +54,3 @@ networks:
 volumes:
     postgres:
     pgadmin:
- 
