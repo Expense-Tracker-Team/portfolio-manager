@@ -30,7 +30,7 @@
             GetUsersResponse response = await service.GetUsers(new Empty(), TestServerCallContext.Create());
 
             // Asserts
-            response.Users.Should().BeEmpty();
+            response.Users.Should().NotBeEmpty();
         }
 
         [Fact]
