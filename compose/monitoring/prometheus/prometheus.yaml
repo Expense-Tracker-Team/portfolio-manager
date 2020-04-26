@@ -54,7 +54,6 @@ scrape_configs:
 
   - job_name: 'node-exporter'
 
-    # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
 
     static_configs:
@@ -62,8 +61,14 @@ scrape_configs:
 
   - job_name: 'jaeger'
 
-    # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
 
     static_configs:
       - targets: ['jaeger:14269']
+
+  - job_name: 'pgexporter'
+
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['pgexporter:9187']
