@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Metrics
 {
-    using Application.Interfaces.Infrastructure.Metrics;
+    using Application.Infrastructure.Metrics;
     using Prometheus;
 
     // In case you are hesitating how to name your metric, consult https://prometheus.io/docs/practices/naming/

@@ -1,8 +1,8 @@
 ﻿namespace Persistence.EntityTypeConfigurations
 {
-    using Domain;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Persistence.Models;
 
     public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {

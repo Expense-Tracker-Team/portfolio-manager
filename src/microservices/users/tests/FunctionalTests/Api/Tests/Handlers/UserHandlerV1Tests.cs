@@ -9,17 +9,5 @@
 
     public class UserHandlerV1Tests : FunctionalTestBase
     {
-        [Fact]
-        public async Task GetUsers_ReturnsAllUsers()
-        {
-            // Arrange
-            var client = new Users.UsersClient(this.Channel);
-
-            // Act
-            GetUsersResponse response = await client.GetUsersAsync(new Empty());
-
-            // Assert
-            response.Users.Count.Should().Be(0);
-        }
     }
 }
