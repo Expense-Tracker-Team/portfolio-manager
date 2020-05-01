@@ -2,6 +2,8 @@
 {
     using Application.Infrastructure.Repositories;
     using Domain;
+    using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Threading.Tasks;
 
     using UserDataModel = Persistence.Models.User;
@@ -27,6 +29,13 @@
             await this.dbContext.SaveChangesAsync();
 
             return new User(dataModel.Id, dataModel.Email, dataModel.PasswordHash, dataModel.Name, dataModel.PhoneNumber);
+        }
+
+        public async Task<User> Get(Guid userId)
+        {
+            var user = await this.dbContext.Users.AsNoTracking().SingleAsync(x => x.Id == userId);
+
+            return new User(user.Id, user.Email, user.PasswordHash, user.Name, user.PhoneNumber);
         }
     }
 }
