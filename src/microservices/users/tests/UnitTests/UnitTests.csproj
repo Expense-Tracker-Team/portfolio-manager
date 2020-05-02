@@ -6,26 +6,22 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0"/>
-    <PackageReference Include="xunit" Version="2.4.1"/>
+    <Compile Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <None Remove="Infrastructure\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FakeItEasy" Version="6.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="1.2.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.10.0"/>
-    <PackageReference Include="Moq" Version="4.13.1"/>
+    <PackageReference Include="FluentAssertions" Version="5.10.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Application\UseCases\"/>
-    <Folder Include="Domain\"/>
-    <Folder Include="Infrastructure\"/>
-    <Folder Include="Persistence\"/>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Api\Api.csproj"/>
+    <ProjectReference Include="..\..\src\Api\Api.csproj" />
   </ItemGroup>
 </Project>
