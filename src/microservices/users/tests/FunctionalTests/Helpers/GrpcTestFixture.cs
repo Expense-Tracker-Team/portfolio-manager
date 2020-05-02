@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using global::Api;
+    using Serilog;
 
     public delegate void LogMessage(LogLevel logLevel, string categoryName, EventId eventId, string message, Exception exception);
 
@@ -28,11 +29,12 @@
             this.LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) => LoggedMessage?.Invoke(logLevel, category, eventId, message, exception)));
 
             IHostBuilder builder = new HostBuilder()
-                .ConfigureServices(services =>
+                .ConfigureServices(async services =>
                 {
                     initialConfigureServices?.Invoke(services);
                     services.AddSingleton<ILoggerFactory>(this.LoggerFactory);
                 })
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webHost =>
                 {
                     webHost
