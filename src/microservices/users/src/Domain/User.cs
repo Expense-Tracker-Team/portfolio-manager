@@ -8,7 +8,7 @@
         {
             if (id == Guid.Empty)
             {
-                id = new Guid();
+                id = Guid.NewGuid();
             }
 
             this.Id = id;
