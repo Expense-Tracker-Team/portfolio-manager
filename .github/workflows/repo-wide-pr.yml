@@ -14,6 +14,7 @@ jobs:
   lintAllTheThings:
     runs-on: ubuntu-latest
     steps:
+    - continue-on-error: false
     - uses: actions/checkout@v1
     - name: yaml-lint
       uses: ibiqlik/action-yamllint@master
