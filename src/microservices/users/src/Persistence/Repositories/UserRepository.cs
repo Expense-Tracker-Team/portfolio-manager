@@ -12,7 +12,7 @@
 
         public UserRepository(UsersDbContext dbContext) => this.dbContext = dbContext;
 
-        public async Task<User> Create(User user)
+        public async Task<User> CreateAsync(User user)
         {
             var dataModel = new UserDataModel
             {

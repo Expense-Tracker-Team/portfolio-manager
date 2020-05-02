@@ -56,10 +56,7 @@ namespace Api
         }
 
         // This method configures the logging fo the application using Serilog
-        public void ConfigureLoggingServices(IServiceCollection services)
-        {
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
-        }
+        public void ConfigureLoggingServices(IServiceCollection services) => services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
         public void ConfigureGrpcServices(IServiceCollection services)
         {

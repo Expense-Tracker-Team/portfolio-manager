@@ -15,10 +15,9 @@
 
         public async Task<User> ExecuteAsync(CreateUserInput createUser)
         {
-            var passwordHash = createUser.Password + "_hashed";            
-            var user = new User(Guid.NewGuid(), createUser.Email, passwordHash, createUser.Name, createUser.PhoneNumber);
+            var user = new User(Guid.NewGuid(), createUser.Email, createUser.Password, createUser.Name, createUser.PhoneNumber);
 
-            User createdUser = await this.repository.Create(user);
+            User createdUser = await this.repository.CreateAsync(user);
             
             return createdUser;
         }
