@@ -5,12 +5,10 @@ on:
     branches:
       - master
       - github-actions
-      - testing-coverage
   pull_request:
     branches: 
       - master
       - github-actions
-      - testing-coverage
 
 jobs:
   build:
