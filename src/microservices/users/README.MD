@@ -1,6 +1,5 @@
 # User Service
 
-
 ## Summary
 
 - Stores and manages User information
