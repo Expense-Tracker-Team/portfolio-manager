@@ -1,6 +1,6 @@
 name: Greetings
 
-on: [pull_request]
+on: [pull_request, issues]
 
 jobs:
   greeting:
@@ -11,9 +11,3 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: 'You are super cool for opening this first issue! Please do not hesitate to do it again! :) '' first issue'
         pr-message: 'Wow! Your first PR? You must be super proud! Remember, a PR a day keeps the PM away! :) '' first pr'
-  lintAllTheThings:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: yaml-lint
-      uses: ibiqlik/action-yamllint@master
