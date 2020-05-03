@@ -1,3 +1,4 @@
+
 namespace Api
 {
     using System;
@@ -42,6 +43,7 @@ namespace Api
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICreateUserUseCase, CreateUserUseCase>();
+            services.AddTransient<IGetUserUseCase, GetUserUseCase>();
 
             this.ConfigurePostgresDatabaseServices(services);
             this.ConfigureLoggingServices(services);
