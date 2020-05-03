@@ -2,7 +2,9 @@
 {
     using System.Threading.Tasks;
     using Xunit;
+    using Google.Protobuf.WellKnownTypes;
     using FluentAssertions;
+    using Grpc.Core;
     using global::Api.Protos;
     using global::Api;
     using global::Application.UseCases.Interfaces;
@@ -10,6 +12,7 @@
     using System;
     using UnitTests.Api.Helpers;
     using Microsoft.Extensions.Logging;
+    using Application.UseCases.Interfaces;
     using FakeItEasy;
     using User = global::Domain.User;
     using UnitTests.Common;
@@ -76,6 +79,8 @@
             //Assert
             action.Should().Throw<ArgumentNullException>();
         }
+
+
 
         [Fact]
         public async Task CreateUser_WithValidParameters_ShouldReturnCreatedUser()
