@@ -1,4 +1,4 @@
-﻿namespace UnitTests.Api.Helpers
+﻿namespace UnitTests.Common
 {
     using Domain;
     using System;
@@ -13,11 +13,11 @@
 
         public UserBuilder()
         {
-            this.id = Guid.NewGuid();
-            this.email = "test@email.com";
-            this.passwordHash = "secret_password";
-            this.name = "John Doe";
-            this.phoneNumber = "08888888888";
+            id = Guid.NewGuid();
+            email = "test@email.com";
+            passwordHash = "secret_password";
+            name = "John Doe";
+            phoneNumber = "08888888888";
         }
 
         public UserBuilder WithId(Guid id)
@@ -32,6 +32,6 @@
             return this;
         }
 
-        public User Build() => new User(this.id, this.email, this.passwordHash, this.name, this.phoneNumber);
+        public User Build() => new User(id, email, passwordHash, name, phoneNumber);
     }
 }

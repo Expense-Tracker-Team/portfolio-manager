@@ -12,8 +12,9 @@
     using System;
     using UnitTests.Api.Helpers;
     using Microsoft.Extensions.Logging;
-    using Application.UseCases.Interfaces;
     using FakeItEasy;
+    using UnitTests.Common;
+    using global::Application.UseCases.Interfaces;
 
     public class UserHandlerV1Tests
     {
@@ -30,23 +31,23 @@
         public async Task GetUserById_GivenTheUserExists_ShouldReturnUser()
         {
             //Arrange
-            var stubbedUser = new UserBuilder().Build();
+            var userFake = new UserBuilder().Build();
             var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
 
             var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
 
             A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(A<Guid>.Ignored))
-                .Returns(stubbedUser);
+                .Returns(userFake);
 
             //Act
             var response = await serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
 
             //Assert
             response.User.Uuid.Should().NotBe(string.Empty);
-            response.User.Name.Should().Be(stubbedUser.Name);
-            response.User.Email.Should().Be(stubbedUser.Email);
-            response.User.Password.Should().Be(stubbedUser.PasswordHash);
-            response.User.PhoneNumber.Should().Be(stubbedUser.PhoneNumber);
+            response.User.Name.Should().Be(userFake.Name);
+            response.User.Email.Should().Be(userFake.Email);
+            response.User.Password.Should().Be(userFake.PasswordHash);
+            response.User.PhoneNumber.Should().Be(userFake.PhoneNumber);
         }
 
         [Fact]
@@ -57,14 +58,14 @@
 
             var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
 
-            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(A<Guid>.Ignored))
+            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(Guid.Empty))
                 .ThrowsAsync(new ArgumentNullException());
 
             //Act
             Func<Task> action = () => serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
 
             //Assert
-            action.Should().Throw<ArgumentNullException>();
+            action.Should().Throw<NullReferenceException>();
         }
     }
 }
