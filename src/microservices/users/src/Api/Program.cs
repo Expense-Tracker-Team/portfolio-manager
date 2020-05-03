@@ -35,10 +35,10 @@ namespace Api
                         .UseStartup<Startup>()
                         .ConfigureKestrel(options =>
                             {
-                                // options.Listen(IPAddress.Any, 80, listenOptions =>
-                                // {
-                                //     listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                                // });
+                                options.Listen(IPAddress.Any, 80, listenOptions =>
+                                {
+                                    listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                                });
 
                                 options.Listen(IPAddress.Any, 5001, listenOptions =>
                                 {
