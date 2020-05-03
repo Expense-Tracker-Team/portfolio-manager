@@ -25,6 +25,8 @@ Financial portfolio management system based on microservices architecture.
 - Monitoring with [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/)
 - Logging with [Elastic Stack](https://www.elastic.co/)
 - Tracing with [Jaeger](https://www.jaegertracing.io/)
+- Storage with [PostgreSQL](https://www.postgresql.org/)
+- Behavioral code analysis with [CodeScene](https://codescene.io/projects/8028)
 
 ## Getting started
 
