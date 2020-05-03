@@ -9,6 +9,7 @@
     using global::Application.UseCases.Models;
     using System;
     using UnitTests.Api.Helpers;
+    using Microsoft.Extensions.Logging;
     using FakeItEasy;
     using User = global::Domain.User;
 

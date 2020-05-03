@@ -49,7 +49,7 @@ namespace Api
 
             var response = new GetUserByIdResponse
             {
-                User = new User
+                User = new UserResponse
                 {
                     Uuid = user.Id.ToString(),
                     Name = user.Name,

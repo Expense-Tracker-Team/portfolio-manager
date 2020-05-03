@@ -33,7 +33,7 @@
 
         public async Task<User> Get(Guid userId)
         {
-            var user = await this.dbContext.Users.AsNoTracking().SingleAsync(x => x.Id == userId);
+            var user = await this.dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
 
             return new User(user.Id, user.Email, user.PasswordHash, user.Name, user.PhoneNumber);
         }
