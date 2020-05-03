@@ -16,11 +16,11 @@ service Users {
 }
 
 message GetUsersResponse {
-	repeated User users = 1;
+	repeated UserResponse users = 1;
 }
 
 message GetUserStreamResponse {
-	User user = 1;
+	UserResponse user = 1;
 }
 
 message GetUserByIdRequest {
@@ -28,7 +28,7 @@ message GetUserByIdRequest {
 }
 
 message GetUserByIdResponse {
-	User user = 1;
+	UserResponse user = 1;
 }
 
 message CreateUserRequest {
@@ -53,7 +53,7 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-	User user = 1;
+	UserResponse user = 1;
 }
 
 message DeleteUserRequest {
@@ -61,10 +61,10 @@ message DeleteUserRequest {
 }
 
 message DeleteUserResponse {
-	User user = 1;
+	UserResponse user = 1;
 }
 
-message User {
+message UserResponse {
 	string uuid = 1;
 	string email = 2;
 	string name = 3;
