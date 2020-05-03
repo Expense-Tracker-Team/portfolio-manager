@@ -31,7 +31,6 @@
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Application\UseCases\" />
     <Folder Include="Domain\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Persistence\" />

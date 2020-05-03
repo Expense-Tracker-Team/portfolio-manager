@@ -12,18 +12,17 @@
     using Microsoft.Extensions.Logging;
     using FakeItEasy;
     using User = global::Domain.User;
+    using UnitTests.Common;
+    using global::Application.UseCases.Interfaces;
 
     public class UserHandlerV1Tests
     {
         [Fact]
         public async Task CreateUser_WithValidParameters_ShouldReturnCreatedUser()
         {
-            // Arrange
-            var id = Guid.NewGuid();
-            const string email = "test@email.com";
-            const string password = "secret_password";
-            const string name = "John Doe";
-            const string phoneNumber = "08888888888";
+            //Arrange
+            var userFake = new UserBuilder().Build();
+            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
 
             ICreateUserUseCase createUserUseCaseStub = A.Fake<ICreateUserUseCase>();
             A.CallTo(() => createUserUseCaseStub.ExecuteAsync(
@@ -34,8 +33,30 @@
                     && i.PhoneNumber == phoneNumber)))
                 .Returns(new User(id, email, password, name, phoneNumber));
 
-            var userHandler = new UserHandlerV1(null, createUserUseCaseStub);
+            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(A<Guid>.Ignored))
+                .Returns(userFake);
 
+            //Act
+            var response = await serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
+
+            //Assert
+            response.User.Uuid.Should().NotBe(string.Empty);
+            response.User.Name.Should().Be(userFake.Name);
+            response.User.Email.Should().Be(userFake.Email);
+            response.User.Password.Should().Be(userFake.PasswordHash);
+            response.User.PhoneNumber.Should().Be(userFake.PhoneNumber);
+        }
+
+        [Fact]
+        public async Task GetUserById_GivenTheUserDoesNotExist_ShouldThrowArgumentNullException()
+        {
+            //Arrange
+            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
+
+            var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
+
+            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(Guid.Empty))
+                .ThrowsAsync(new ArgumentNullException());
             var request = new CreateUserRequest()
             {
                 Email = email,
