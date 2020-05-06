@@ -11,25 +11,20 @@
 
     public class GetUserUseCaseTests
     {
-        private readonly IUserRepository userRepositoryFake;
-
-        public GetUserUseCaseTests()
-        {
-            this.userRepositoryFake = A.Fake<IUserRepository>();
-        }
-
         [Fact]
         public async Task ExecuteAsync_GivenUserId_ShouldReturnUser()
         {
             //Arrange
             var userFake = new UserBuilder().Build();
-            var getUserUseCaseMock = new GetUserUseCase(this.userRepositoryFake);
+            var userRepositoryFake = A.Fake<IUserRepository>();
 
-            A.CallTo(() => this.userRepositoryFake.Get(A<Guid>.Ignored))
+            A.CallTo(() => userRepositoryFake.Get(A<Guid>.Ignored))
                 .Returns(userFake);
 
+            var getUserUseCase = new GetUserUseCase(userRepositoryFake);
+
             //Act
-            var response = await getUserUseCaseMock.ExecuteAsync(Guid.NewGuid());
+            var response = await getUserUseCase.ExecuteAsync(Guid.NewGuid());
 
             //Assert
             response.Id.Should().NotBe(Guid.Empty);
@@ -43,12 +38,15 @@
         public async Task ExecuteAsync_GivenEmptyGuid_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var getUserUseCaseMock = new GetUserUseCase(this.userRepositoryFake);
-            A.CallTo(() => this.userRepositoryFake.Get(Guid.Empty))
-               .ThrowsAsync(new ArgumentNullException());
+            var userRepositoryFake = A.Fake<IUserRepository>();
+
+            A.CallTo(() => userRepositoryFake.Get(Guid.Empty))
+               .ThrowsAsync(() => new ArgumentNullException());
+
+            var getUserUseCase = new GetUserUseCase(userRepositoryFake);
 
             //Act
-            Func<Task> action = () => getUserUseCaseMock.ExecuteAsync(Guid.Empty);
+            Func<Task> action = () => getUserUseCase.ExecuteAsync(Guid.Empty);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();

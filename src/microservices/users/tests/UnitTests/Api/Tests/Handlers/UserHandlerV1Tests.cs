@@ -18,29 +18,22 @@
 
     public class UserHandlerV1Tests
     {
-        private readonly ILogger<UserHandlerV1> stubbedLogger;
-        private readonly IGetUserUseCase stubbedGetUserUseCase;
-
-        public UserHandlerV1Tests()
-        {
-            this.stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
-            this.stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
-        }
-
         [Fact]
         public async Task GetUserById_GivenTheUserExists_ShouldReturnUser()
         {
             //Arrange
-            var userFake = new UserBuilder().Build();
-            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
+            var userFake = new UserBuilder().WithId(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3")).Build();
+            var getUserIdRequest = new GetUserByIdRequest { Uuid = userFake.Id.ToString() };
+            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
+            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
 
-            var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
-
-            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(A<Guid>.Ignored))
+            A.CallTo(() => stubbedGetUserUseCase.ExecuteAsync(userFake.Id))
                 .Returns(userFake);
 
+            var service = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
+
             //Act
-            var response = await serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
+            var response = await service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
 
             //Assert
             response.User.Uuid.Should().NotBe(string.Empty);
@@ -54,18 +47,21 @@
         public async Task GetUserById_GivenTheUserDoesNotExist_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
+            var userId = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3");
+            var getUserIdRequest = new GetUserByIdRequest { Uuid = userId.ToString() };
+            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
+            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
 
-            var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
+            A.CallTo(() => stubbedGetUserUseCase.ExecuteAsync(userId))
+                .ThrowsAsync(() => new ArgumentNullException());
 
-            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(Guid.Empty))
-                .ThrowsAsync(new ArgumentNullException());
+            var service = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
 
             //Act
-            Func<Task> action = () => serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
+            Func<Task> action = () => service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
 
             //Assert
-            action.Should().Throw<NullReferenceException>();
+            action.Should().Throw<ArgumentNullException>();
         }
     }
 }
