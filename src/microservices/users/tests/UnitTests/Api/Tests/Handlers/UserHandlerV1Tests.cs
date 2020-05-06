@@ -21,8 +21,10 @@
         public async Task CreateUser_WithValidParameters_ShouldReturnCreatedUser()
         {
             //Arrange
-            var userFake = new UserBuilder().Build();
-            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
+            var userFake = new UserBuilder().WithId(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3")).Build();
+            var getUserIdRequest = new GetUserByIdRequest { Uuid = userFake.Id.ToString() };
+            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
+            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
 
             ICreateUserUseCase createUserUseCaseStub = A.Fake<ICreateUserUseCase>();
             A.CallTo(() => createUserUseCaseStub.ExecuteAsync(
@@ -33,11 +35,10 @@
                     && i.PhoneNumber == phoneNumber)))
                 .Returns(new User(id, email, password, name, phoneNumber));
 
-            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(A<Guid>.Ignored))
-                .Returns(userFake);
+            var service = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
 
             //Act
-            var response = await serviceMock.GetUserById(getUserIdRequestStub, TestServerCallContext.Create());
+            var response = await service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
 
             //Assert
             response.User.Uuid.Should().NotBe(string.Empty);
@@ -51,9 +52,13 @@
         public async Task GetUserById_GivenTheUserDoesNotExist_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var getUserIdRequestStub = new GetUserByIdRequest { Uuid = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3").ToString() };
+            var userId = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3");
+            var getUserIdRequest = new GetUserByIdRequest { Uuid = userId.ToString() };
+            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
+            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
 
-            var serviceMock = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
+            A.CallTo(() => stubbedGetUserUseCase.ExecuteAsync(userId))
+                .ThrowsAsync(() => new ArgumentNullException());
 
             A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(Guid.Empty))
                 .ThrowsAsync(new ArgumentNullException());
@@ -65,14 +70,11 @@
                 PhoneNumber = phoneNumber
             };
 
-            // Act
-            CreateUserResponse actual = await userHandler.CreateUser(request, TestServerCallContext.Create());
+            //Act
+            Func<Task> action = () => service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
 
-            // Assert
-            actual.Uuid.Should().Be(id.ToString());
-            actual.Email.Should().Be(email);
-            actual.Name.Should().Be(name);
-            actual.PhoneNumber.Should().Be(phoneNumber);
+            //Assert
+            action.Should().Throw<ArgumentNullException>();
         }
     }
 }
