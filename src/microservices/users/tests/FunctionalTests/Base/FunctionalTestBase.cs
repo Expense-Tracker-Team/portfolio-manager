@@ -12,7 +12,6 @@
     using Persistence;
     using Microsoft.EntityFrameworkCore;
 
-    // https://github.com/grpc/grpc-dotnet/blob/master/examples/Tester/Tests/FunctionalTests/FunctionalTestBase.cs
     public class FunctionalTestBase : IDisposable
     {
         private GrpcChannel? channel;
