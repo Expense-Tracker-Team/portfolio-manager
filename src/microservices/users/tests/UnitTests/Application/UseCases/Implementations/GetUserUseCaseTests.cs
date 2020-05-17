@@ -1,4 +1,4 @@
-﻿namespace UnitTests.Application.UseCases
+﻿namespace UnitTests.Application.UseCases.Implementations
 {
     using FakeItEasy;
     using FluentAssertions;
