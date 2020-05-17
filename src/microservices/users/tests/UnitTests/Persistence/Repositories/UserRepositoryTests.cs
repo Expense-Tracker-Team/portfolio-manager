@@ -2,7 +2,7 @@
 {
     using FakeItEasy;
     using FluentAssertions;
-    using global::Persistence;
+    using global::Persistence.Interfaces;
     using global::Persistence.Repositories;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using UnitTests.Common;
+    using UnitTests.Persistence.Helpers;
     using Xunit;
     using UserDataModel = global::Persistence.Models.User;
 
@@ -26,27 +27,34 @@
         [Fact]
         public async Task Get_GivenUserId_ShouldReturnUser()
         {
+            //Arrange
+            //var fakeDbSet = A.Fake<DbSet<UserDataModel>>(o => 
+            //    o.Implements(typeof(IQueryable<UserDataModel>))
+            //    .Implements(typeof(IAsyncEnumerable<UserDataModel>)));
 
-            var dbOptions = new DbContextOptionsBuilder<UsersDbContext>()
-                  .UseInMemoryDatabase(databaseName: "UsersDbContext")
-                  .Options;
-  
-            using (var context = new UsersDbContext(dbOptions))
-            {
-                context.Users.AddRange(fakeData);
-                context.SaveChanges();
-            }
+            //var fakeDbContext = A.Fake<IUsersDbContext>();
+            //A.CallTo(() => fakeDbContext.Users).Returns(fakeDbSet);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).GetEnumerator()).Returns(fakeData.GetEnumerator());
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Provider).Returns(fakeData.Provider);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Expression).Returns(fakeData.Expression);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).ElementType).Returns(fakeData.ElementType);
 
-            using (var context = new UsersDbContext(dbOptions))
-            {
-                var repository = new UserRepository(context);
+            var fakeDbContext = new FakeUsersDbContext();
 
-                var response = await repository.Get(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3"));
+            var users = fakeDbContext.Users;
 
-                response.Id.Should().NotBeEmpty();
-                response.Id.Should().Be(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3"));
-                response.Email.Should().Be("test1@test.com");
-            }
+            users.AddRange(fakeData);
+
+            var userRepository = new UserRepository(fakeDbContext);
+
+            //Act
+            var user = await userRepository.Get(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3"));
+
+            //Assert
+            user.Should().NotBeNull();
+            user.Id.Should().NotBeEmpty();
+            user.Id.Should().Be(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3"));
+            user.Email.Should().Be("test1@test.com");
         }
     }
 }

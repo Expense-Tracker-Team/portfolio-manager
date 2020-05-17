@@ -3,6 +3,7 @@
     using Application.Infrastructure.Repositories;
     using Domain;
     using Microsoft.EntityFrameworkCore;
+    using Persistence.Interfaces;
     using System;
     using System.Threading.Tasks;
 
@@ -10,9 +11,9 @@
 
     public class UserRepository : IUserRepository
     {
-        private readonly UsersDbContext dbContext;
+        private readonly IUsersDbContext dbContext;
 
-        public UserRepository(UsersDbContext dbContext) => this.dbContext = dbContext;
+        public UserRepository(IUsersDbContext dbContext) => this.dbContext = dbContext;
 
         public async Task<User> CreateAsync(User user)
         {
