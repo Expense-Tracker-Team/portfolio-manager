@@ -2,9 +2,7 @@
 {
     using System.Threading.Tasks;
     using Xunit;
-    using Google.Protobuf.WellKnownTypes;
     using FluentAssertions;
-    using Grpc.Core;
     using global::Api.Protos;
     using global::Api;
     using global::Application.UseCases.Interfaces;
@@ -12,7 +10,6 @@
     using System;
     using UnitTests.Api.Helpers;
     using Microsoft.Extensions.Logging;
-    using Application.UseCases.Interfaces;
     using FakeItEasy;
     using User = global::Domain.User;
     using UnitTests.Common;
@@ -80,8 +77,6 @@
             action.Should().Throw<ArgumentNullException>();
         }
 
-
-
         [Fact]
         public async Task CreateUser_WithValidParameters_ShouldReturnCreatedUser()
         {
@@ -101,7 +96,7 @@
                     && i.PhoneNumber == phoneNumber)))
                 .Returns(new User(id, email, password, name, phoneNumber));
 
-            var userHandler = new UserHandlerV1(null, createUserUseCaseStub);
+            var userHandler = new UserHandlerV1(null, createUserUseCaseStub, null);
 
             var request = new CreateUserRequest()
             {

@@ -1,6 +1,6 @@
 ﻿namespace UnitTests.Common
 {
-    using Domain;
+    using global::Domain;
     using System;
 
     public class UserBuilder

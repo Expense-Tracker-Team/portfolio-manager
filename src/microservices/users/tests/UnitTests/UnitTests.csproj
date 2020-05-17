@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Persistence\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Api\Api.csproj" />
