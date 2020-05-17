@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using UnitTests.Common;
+    using UnitTests.Persistence.Helpers;
     using Xunit;
     using UserDataModel = global::Persistence.Models.User;
 
@@ -27,16 +28,22 @@
         public async Task Get_GivenUserId_ShouldReturnUser()
         {
             //Arrange
-            var fakeDbSet = A.Fake<DbSet<UserDataModel>>(o => 
-                o.Implements(typeof(IQueryable<UserDataModel>))
-                .Implements(typeof(IAsyncEnumerable<UserDataModel>)));
+            //var fakeDbSet = A.Fake<DbSet<UserDataModel>>(o => 
+            //    o.Implements(typeof(IQueryable<UserDataModel>))
+            //    .Implements(typeof(IAsyncEnumerable<UserDataModel>)));
 
-            var fakeDbContext = A.Fake<IUsersDbContext>();
-            A.CallTo(() => fakeDbContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).GetEnumerator()).Returns(fakeData.GetEnumerator());
-            A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Provider).Returns(fakeData.Provider);
-            A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Expression).Returns(fakeData.Expression);
-            A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).ElementType).Returns(fakeData.ElementType);
+            //var fakeDbContext = A.Fake<IUsersDbContext>();
+            //A.CallTo(() => fakeDbContext.Users).Returns(fakeDbSet);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).GetEnumerator()).Returns(fakeData.GetEnumerator());
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Provider).Returns(fakeData.Provider);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).Expression).Returns(fakeData.Expression);
+            //A.CallTo(() => ((IQueryable<UserDataModel>)fakeDbSet).ElementType).Returns(fakeData.ElementType);
+
+            var fakeDbContext = new FakeUsersDbContext();
+
+            var users = fakeDbContext.Users;
+
+            users.AddRange(fakeData);
 
             var userRepository = new UserRepository(fakeDbContext);
 

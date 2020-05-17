@@ -11,9 +11,9 @@
 
     public class UserRepository : IUserRepository
     {
-        private readonly UsersDbContext dbContext;
+        private readonly IUsersDbContext dbContext;
 
-        public UserRepository(IUsersDbContext dbContext) => this.dbContext = (UsersDbContext)dbContext;
+        public UserRepository(IUsersDbContext dbContext) => this.dbContext = dbContext;
 
         public async Task<User> CreateAsync(User user)
         {
