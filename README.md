@@ -27,6 +27,7 @@ Financial portfolio management system based on microservices architecture.
 - Tracing with [Jaeger](https://www.jaegertracing.io/)
 - Storage with [PostgreSQL](https://www.postgresql.org/)
 - Behavioral code analysis with [CodeScene](https://codescene.io/projects/8028)
+- [Testcontainers](https://www.testcontainers.org/) are used in integration and functional tests
 
 ## Getting started
 

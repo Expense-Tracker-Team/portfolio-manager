@@ -16,19 +16,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      
     - uses: actions/checkout@v2
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+
     - name: Install dependencies
       run: dotnet restore src/microservices/users/src/Api/
+
     - name: Build
       run: dotnet build src/microservices/users/src/Api/ --configuration Release --no-restore
-    - name: Test
+
+    - name: Run unit tests
       run: dotnet test src/microservices/users/tests/UnitTests/ /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/microservices/users/tests/UnitTests/TestResults/coverage.info 
+
+    - name: Run integration tests
+      run: dotnet test src/microservices/users/tests/IntegrationTests/
+
+    - name: Run functional tests
+      run: dotnet test src/microservices/users/tests/FunctionalTests/

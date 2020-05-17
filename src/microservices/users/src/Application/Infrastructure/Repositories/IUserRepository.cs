@@ -5,6 +5,6 @@
 
     public interface IUserRepository
     {
-        Task<User> Create(User user);
+        Task<User> CreateAsync(User user);
     }
 }

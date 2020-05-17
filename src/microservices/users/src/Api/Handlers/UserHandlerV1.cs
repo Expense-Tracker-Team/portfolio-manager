@@ -20,13 +20,7 @@ namespace Api
 
         public override async Task<CreateUserResponse> CreateUser(CreateUserRequest request, ServerCallContext context)
         {
-            var createUserInput = new CreateUserInput
-            {
-                Email = request.Email,
-                Name = request.Name,
-                Password = request.Password,
-                PhoneNumber = request.PhoneNumber
-            };
+            var createUserInput = new CreateUserInput(request.Email, request.Password, request.Name, request.PhoneNumber);
 
             Domain.User createdUser = await this.createUserUseCase.ExecuteAsync(createUserInput);
 
