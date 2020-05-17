@@ -8,6 +8,6 @@
     {
         Task<User> CreateAsync(User user);
 
-        Task<User> Get(Guid userId);
+        Task<User> GetAsync(Guid userId);
     }
 }

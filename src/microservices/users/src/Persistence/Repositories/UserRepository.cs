@@ -32,7 +32,7 @@
             return new User(dataModel.Id, dataModel.Email, dataModel.PasswordHash, dataModel.Name, dataModel.PhoneNumber);
         }
 
-        public async Task<User> Get(Guid userId)
+        public async Task<User> GetAsync(Guid userId)
         {
             var user = await this.dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
 

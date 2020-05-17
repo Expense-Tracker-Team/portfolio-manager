@@ -12,6 +12,6 @@
 
         public GetUserUseCase(IUserRepository repository) => this.repository = repository;
 
-        public async Task<User> ExecuteAsync(Guid userId) => await this.repository.Get(userId);
+        public Task<User> ExecuteAsync(Guid userId) => this.repository.GetAsync(userId);
     }
 }

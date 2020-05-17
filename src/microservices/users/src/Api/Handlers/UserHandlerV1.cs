@@ -54,7 +54,6 @@ namespace Api
                     Uuid = user.Id.ToString(),
                     Name = user.Name,
                     Email = user.Email,
-                    Password = user.PasswordHash,
                     PhoneNumber = user.PhoneNumber
                 }
             };

@@ -18,7 +18,7 @@
             var userFake = new UserBuilder().Build();
             var userRepositoryFake = A.Fake<IUserRepository>();
 
-            A.CallTo(() => userRepositoryFake.Get(A<Guid>.Ignored))
+            A.CallTo(() => userRepositoryFake.GetAsync(A<Guid>.Ignored))
                 .Returns(userFake);
 
             var getUserUseCase = new GetUserUseCase(userRepositoryFake);
@@ -40,7 +40,7 @@
             //Arrange
             var userRepositoryFake = A.Fake<IUserRepository>();
 
-            A.CallTo(() => userRepositoryFake.Get(Guid.Empty))
+            A.CallTo(() => userRepositoryFake.GetAsync(Guid.Empty))
                .ThrowsAsync(() => new ArgumentNullException());
 
             var getUserUseCase = new GetUserUseCase(userRepositoryFake);
