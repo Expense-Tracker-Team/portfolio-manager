@@ -9,33 +9,24 @@
     using global::Application.UseCases.Models;
     using System;
     using UnitTests.Api.Helpers;
-    using Microsoft.Extensions.Logging;
     using FakeItEasy;
     using User = global::Domain.User;
     using UnitTests.Common;
-    using User = global::Domain.User;
 
     public class UserHandlerV1Tests
     {
         [Fact]
-        public async Task CreateUser_WithValidParameters_ShouldReturnCreatedUser()
+        public async Task GetUserById_GivenTheUserExists_ShouldReturnCreatedUser()
         {
             //Arrange
             var userFake = new UserBuilder().WithId(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3")).Build();
             var getUserIdRequest = new GetUserByIdRequest { Uuid = userFake.Id.ToString() };
-            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
-            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
+            var getUserUseCaseStub = A.Fake<IGetUserUseCase>();
 
-            ICreateUserUseCase createUserUseCaseStub = A.Fake<ICreateUserUseCase>();
-            A.CallTo(() => createUserUseCaseStub.ExecuteAsync(
-                A<CreateUserInput>.That.Matches(
-                    i => i.Email == email
-                    && i.Password == password
-                    && i.Name == name
-                    && i.PhoneNumber == phoneNumber)))
-                .Returns(new User(id, email, password, name, phoneNumber));
+            A.CallTo(() => getUserUseCaseStub.ExecuteAsync(userFake.Id))
+                .Returns(userFake);
 
-            var service = new UserHandlerV1(stubbedLogger, null, stubbedGetUserUseCase);
+            var service = new UserHandlerV1(null, null, getUserUseCaseStub);
 
             //Act
             var response = await service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
@@ -54,21 +45,12 @@
             //Arrange
             var userId = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3");
             var getUserIdRequest = new GetUserByIdRequest { Uuid = userId.ToString() };
-            var stubbedGetUserUseCase = A.Fake<IGetUserUseCase>();
-            var stubbedLogger = A.Fake<ILogger<UserHandlerV1>>();
+            var getUserUseCaseStub = A.Fake<IGetUserUseCase>();
 
-            A.CallTo(() => stubbedGetUserUseCase.ExecuteAsync(userId))
+            A.CallTo(() => getUserUseCaseStub.ExecuteAsync(userId))
                 .ThrowsAsync(() => new ArgumentNullException());
 
-            A.CallTo(() => this.stubbedGetUserUseCase.ExecuteAsync(Guid.Empty))
-                .ThrowsAsync(new ArgumentNullException());
-            var request = new CreateUserRequest()
-            {
-                Email = email,
-                Password = password,
-                Name = name,
-                PhoneNumber = phoneNumber
-            };
+            var service = new UserHandlerV1(null, null, getUserUseCaseStub);
 
             //Act
             Func<Task> action = () => service.GetUserById(getUserIdRequest, TestServerCallContext.Create());
