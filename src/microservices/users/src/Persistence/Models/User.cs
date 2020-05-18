@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class User
+    public class UserDataModel
     {
         public Guid Id { get; set; }
 

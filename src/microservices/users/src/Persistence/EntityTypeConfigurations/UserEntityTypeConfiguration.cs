@@ -4,8 +4,8 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Persistence.Models;
 
-    public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
+    public class UserEntityTypeConfiguration : IEntityTypeConfiguration<UserDataModel>
     {
-        public void Configure(EntityTypeBuilder<User> builder) => builder.HasKey(poll => poll.Id);
+        public void Configure(EntityTypeBuilder<UserDataModel> builder) => builder.HasKey(poll => poll.Id);
     }
 }

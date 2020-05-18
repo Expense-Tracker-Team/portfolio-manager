@@ -7,8 +7,6 @@
     using System;
     using System.Threading.Tasks;
 
-    using UserDataModel = Persistence.Models.User;
-
     public class UserRepository : IUserRepository
     {
         private readonly IUsersDbContext dbContext;
