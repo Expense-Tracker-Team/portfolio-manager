@@ -23,6 +23,7 @@ namespace Api
     using Persistence.Repositories;
     using Application.UseCases.Interfaces;
     using Application.UseCases.Implementations;
+    using Persistence.Interfaces;
 
     public class Startup
     {
@@ -44,6 +45,7 @@ namespace Api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICreateUserUseCase, CreateUserUseCase>();
             services.AddTransient<IGetUserUseCase, GetUserUseCase>();
+            services.AddTransient<IUsersDbContext, UsersDbContext>();
 
             this.ConfigurePostgresDatabaseServices(services);
             this.ConfigureLoggingServices(services);
