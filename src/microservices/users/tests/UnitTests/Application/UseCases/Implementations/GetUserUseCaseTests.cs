@@ -16,12 +16,12 @@
         {
             //Arrange
             var userFake = new UserBuilder().Build();
-            var userRepositoryFake = A.Fake<IUserRepository>();
+            var userRepositoryStub = A.Fake<IUserRepository>();
 
-            A.CallTo(() => userRepositoryFake.GetAsync(A<Guid>.Ignored))
+            A.CallTo(() => userRepositoryStub.GetAsync(A<Guid>.Ignored))
                 .Returns(userFake);
 
-            var getUserUseCase = new GetUserUseCase(userRepositoryFake);
+            var getUserUseCase = new GetUserUseCase(userRepositoryStub);
 
             //Act
             var response = await getUserUseCase.ExecuteAsync(Guid.NewGuid());
@@ -35,15 +35,15 @@
         }
 
         [Fact]
-        public async Task ExecuteAsync_GivenEmptyGuid_ShouldThrowArgumentNullException()
+        public void ExecuteAsync_GivenEmptyGuid_ShouldThrowArgumentNullException()
         {
             //Arrange
-            var userRepositoryFake = A.Fake<IUserRepository>();
+            var userRepositoryStub = A.Fake<IUserRepository>();
 
-            A.CallTo(() => userRepositoryFake.GetAsync(Guid.Empty))
+            A.CallTo(() => userRepositoryStub.GetAsync(Guid.Empty))
                .ThrowsAsync(() => new ArgumentNullException());
 
-            var getUserUseCase = new GetUserUseCase(userRepositoryFake);
+            var getUserUseCase = new GetUserUseCase(userRepositoryStub);
 
             //Act
             Func<Task> action = () => getUserUseCase.ExecuteAsync(Guid.Empty);

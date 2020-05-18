@@ -39,7 +39,7 @@
         }
 
         [Fact]
-        public async Task GetUserById_GivenTheUserDoesNotExist_ShouldThrowArgumentNullException()
+        public void GetUserById_GivenTheUserDoesNotExist_ShouldThrowArgumentNullException()
         {
             //Arrange
             var userId = new Guid("4beabede-1b80-4663-9a21-97e41c2616d3");
