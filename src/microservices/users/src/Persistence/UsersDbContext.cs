@@ -2,9 +2,10 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Persistence.EntityTypeConfigurations;
+    using Persistence.Interfaces;
     using Persistence.Models;
 
-    public class UsersDbContext : DbContext
+    public class UsersDbContext : DbContext, IUsersDbContext
     {
         public UsersDbContext(DbContextOptions<UsersDbContext> options)
             : base(options)
