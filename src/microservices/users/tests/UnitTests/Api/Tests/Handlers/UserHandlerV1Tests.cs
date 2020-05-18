@@ -35,7 +35,6 @@
             response.User.Uuid.Should().NotBe(string.Empty);
             response.User.Name.Should().Be(userFake.Name);
             response.User.Email.Should().Be(userFake.Email);
-            response.User.Password.Should().Be(userFake.PasswordHash);
             response.User.PhoneNumber.Should().Be(userFake.PhoneNumber);
         }
 
