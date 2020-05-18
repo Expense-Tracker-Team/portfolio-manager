@@ -36,5 +36,42 @@
             actual.Name.Should().Be(name);
             actual.PhoneNumber.Should().Be(phoneNumber);
         }
+
+        [Fact]
+        public async Task GetUser_GivenValidId_ShouldReturnUser()
+        {
+            // Arrange
+            const string email = "test@email.com";
+            const string password = "secret_password";
+            const string name = "John Doe";
+            const string phoneNumber = "0888888888";
+
+            var client = new Users.UsersClient(this.Channel);
+
+            var createUserRequest = new CreateUserRequest
+            {
+                Email = email,
+                Password = password,
+                Name = name,
+                PhoneNumber = phoneNumber
+            };
+
+            CreateUserResponse createUserResponse = await client.CreateUserAsync(createUserRequest);
+
+            var getUserRequest = new GetUserByIdRequest
+            {
+                Uuid = createUserResponse.Uuid
+            };
+
+            // Act
+            GetUserByIdResponse response = await client.GetUserByIdAsync(getUserRequest);
+
+            // Assert
+            response.User.Uuid.Should().NotBe(Guid.Empty.ToString());
+            response.User.Uuid.Should().Be(createUserResponse.Uuid);
+            response.User.Email.Should().Be(email);
+            response.User.Name.Should().Be(name);
+            response.User.PhoneNumber.Should().Be(phoneNumber);
+        }
     }
 }

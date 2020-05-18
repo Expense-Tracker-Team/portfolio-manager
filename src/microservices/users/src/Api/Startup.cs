@@ -1,29 +1,35 @@
-
 namespace Api
 {
-    using System;
-    using System.Threading.Tasks;
+    using Api.Config.Jaeger;
+    using Api.Constants;
+    using Api.Interceptors;
+
+    using Application.Infrastructure.Metrics;
+    using Application.Infrastructure.Repositories;
+    using Application.UseCases.Implementations;
+    using Application.UseCases.Interfaces;
+
+    using Infrastructure.Metrics;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Prometheus;
-    using Serilog;
-    using Api.Config.Jaeger;
-    using Infrastructure.Metrics;
-    using Api.Interceptors;
+
     using Persistence;
-    using Api.Constants;
-    using Microsoft.EntityFrameworkCore;
-    using Application.Infrastructure.Metrics;
-    using Application.Infrastructure.Repositories;
-    using Persistence.Repositories;
-    using Application.UseCases.Interfaces;
-    using Application.UseCases.Implementations;
     using Persistence.Interfaces;
+    using Persistence.Repositories;
+
+    using Prometheus;
+
+    using Serilog;
+
+    using System;
+    using System.Threading.Tasks;
 
     public class Startup
     {
@@ -113,7 +119,7 @@ namespace Api
                             metricsRegistry.CountFailedGrpcCalls("GET /");
                         }
 
-                        var delayMilliseconds = random.Next(0, 2000);
+                        int delayMilliseconds = random.Next(0, 2000);
                         await Task.Delay(delayMilliseconds);
 
                         await context.Response.WriteAsync(
