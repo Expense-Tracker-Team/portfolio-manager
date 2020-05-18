@@ -1,6 +1,6 @@
 # Portfolio Manager
 
-[![Coverage Status](https://coveralls.io/repos/github/Expense-Tracker-Team/portfolio-manager/badge.svg?branch=testing-coverage)](https://coveralls.io/github/Expense-Tracker-Team/portfolio-manager?branch=testing-coverage)
+[![Coverage Status](https://coveralls.io/repos/github/Expense-Tracker-Team/portfolio-manager/badge.svg?branch=master)](https://coveralls.io/github/Expense-Tracker-Team/portfolio-manager?branch=master)
 
 ## Summary
 
