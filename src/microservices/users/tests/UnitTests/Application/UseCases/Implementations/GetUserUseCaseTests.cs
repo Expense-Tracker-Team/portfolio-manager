@@ -15,11 +15,11 @@
         public async Task ExecuteAsync_GivenUserId_ShouldReturnUser()
         {
             //Arrange
-            var userFake = new UserBuilder().Build();
+            var user = new UserBuilder().Build();
             var userRepositoryStub = A.Fake<IUserRepository>();
 
             A.CallTo(() => userRepositoryStub.GetAsync(A<Guid>.Ignored))
-                .Returns(userFake);
+                .Returns(user);
 
             var getUserUseCase = new GetUserUseCase(userRepositoryStub);
 
@@ -28,10 +28,10 @@
 
             //Assert
             response.Id.Should().NotBe(Guid.Empty);
-            response.Name.Should().Be(userFake.Name);
-            response.Email.Should().Be(userFake.Email);
-            response.PasswordHash.Should().Be(userFake.PasswordHash);
-            response.PhoneNumber.Should().Be(userFake.PhoneNumber);
+            response.Name.Should().Be(user.Name);
+            response.Email.Should().Be(user.Email);
+            response.PasswordHash.Should().Be(user.PasswordHash);
+            response.PhoneNumber.Should().Be(user.PhoneNumber);
         }
 
         [Fact]

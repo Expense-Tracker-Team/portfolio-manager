@@ -19,12 +19,12 @@
         public async Task GetUserById_GivenTheUserExists_ShouldReturnCreatedUser()
         {
             //Arrange
-            var userFake = new UserBuilder().WithId(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3")).Build();
-            var getUserIdRequest = new GetUserByIdRequest { Uuid = userFake.Id.ToString() };
+            var user = new UserBuilder().WithId(new Guid("4beabede-1b80-4663-9a21-97e41c2616d3")).Build();
+            var getUserIdRequest = new GetUserByIdRequest { Uuid = user.Id.ToString() };
             var getUserUseCaseStub = A.Fake<IGetUserUseCase>();
 
-            A.CallTo(() => getUserUseCaseStub.ExecuteAsync(userFake.Id))
-                .Returns(userFake);
+            A.CallTo(() => getUserUseCaseStub.ExecuteAsync(user.Id))
+                .Returns(user);
 
             var service = new UserHandlerV1(null, null, getUserUseCaseStub);
 
@@ -33,9 +33,9 @@
 
             //Assert
             response.User.Uuid.Should().NotBe(string.Empty);
-            response.User.Name.Should().Be(userFake.Name);
-            response.User.Email.Should().Be(userFake.Email);
-            response.User.PhoneNumber.Should().Be(userFake.PhoneNumber);
+            response.User.Name.Should().Be(user.Name);
+            response.User.Email.Should().Be(user.Email);
+            response.User.PhoneNumber.Should().Be(user.PhoneNumber);
         }
 
         [Fact]
