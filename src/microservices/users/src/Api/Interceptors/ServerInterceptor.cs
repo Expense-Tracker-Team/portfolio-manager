@@ -70,7 +70,7 @@
                             statusCode = StatusCode.Internal;
                         }
 
-                        throw new RpcException(new Status(StatusCode.Internal, errorDetail));
+                        throw new RpcException(new Status(statusCode, errorDetail));
                     }
                     finally
                     {
