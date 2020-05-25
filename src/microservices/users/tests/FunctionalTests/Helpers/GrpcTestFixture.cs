@@ -29,7 +29,7 @@
             this.LoggerFactory.AddProvider(new ForwardingLoggerProvider((logLevel, category, eventId, message, exception) => LoggedMessage?.Invoke(logLevel, category, eventId, message, exception)));
 
             IHostBuilder builder = new HostBuilder()
-                .ConfigureServices(async services =>
+                .ConfigureServices(services =>
                 {
                     initialConfigureServices?.Invoke(services);
                     services.AddSingleton<ILoggerFactory>(this.LoggerFactory);
