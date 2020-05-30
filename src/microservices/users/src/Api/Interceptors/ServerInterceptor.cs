@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Api.Constants;
     using Application.Infrastructure.Metrics;
+    using Domain.Exceptions;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using Microsoft.Extensions.Logging;
@@ -32,34 +33,44 @@
             if (string.IsNullOrEmpty(correlationId))
             {
                 correlationId = Guid.NewGuid().ToString();
-            } 
+            }
 
             using (this.metricsRegistry.HistogramGrpcCallsDuration())
             {
                 using (LogContext.PushProperty(SerilogCustomProperties.CorrelationId, correlationId))
                 {
                     this.logger.LogInformation(InformationLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse));
-                    var statusCode = context.Status.StatusCode;
-                    
+                    StatusCode statusCode = context.Status.StatusCode;
+
                     try
                     {
                         TResponse response = await base.UnaryServerHandler(request, context, continuation);
                         this.metricsRegistry.CountSuccessGrpcCalls(context.Method);
                         return response;
                     }
-                    catch (Exception ex)
+                    catch (Exception exception)
                     {
                         this.metricsRegistry.CountFailedGrpcCalls(context.Method);
-                        this.logger.LogError(ErrorLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse), ex, context.Status.StatusCode);
+                        this.logger.LogError(ErrorLogTemplate, context.Method, typeof(TRequest), request, typeof(TResponse), exception, context.Status.StatusCode);
 
-                        if (ex is RpcException)
+                        var errorDetail = string.Empty;
+
+                        if (exception is RpcException)
                         {
-                            statusCode = ((RpcException)ex).Status.StatusCode;
                             throw;
                         }
 
-                        statusCode = StatusCode.Internal;
-                        throw new RpcException(new Status(StatusCode.Internal, string.Empty));
+                        if (exception is DomainException)
+                        {
+                            errorDetail = exception.Message;
+                            statusCode = StatusCode.InvalidArgument;
+                        }
+                        else
+                        {
+                            statusCode = StatusCode.Internal;
+                        }
+
+                        throw new RpcException(new Status(statusCode, errorDetail));
                     }
                     finally
                     {

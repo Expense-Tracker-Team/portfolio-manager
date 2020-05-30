@@ -8,9 +8,9 @@
     {
         private Guid id;
         private string email;
-        private string passwordHash;
-        private string name;
-        private string phoneNumber;
+        private readonly string passwordHash;
+        private readonly string name;
+        private readonly string phoneNumber;
 
         public UserBuilder()
         {

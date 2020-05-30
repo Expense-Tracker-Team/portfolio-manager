@@ -7,7 +7,7 @@
 
     public interface IUsersDbContext
     {
-        DbSet<User> Users { get; }
+        DbSet<UserDataModel> Users { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

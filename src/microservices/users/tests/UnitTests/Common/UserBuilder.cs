@@ -7,17 +7,17 @@
     {
         private Guid id;
         private string email;
-        private string passwordHash;
-        private string name;
-        private string phoneNumber;
+        private readonly string passwordHash;
+        private readonly string name;
+        private readonly string phoneNumber;
 
         public UserBuilder()
         {
-            id = Guid.NewGuid();
-            email = "test@email.com";
-            passwordHash = "secret_password";
-            name = "John Doe";
-            phoneNumber = "08888888888";
+            this.id = Guid.NewGuid();
+            this.email = "test@email.com";
+            this.passwordHash = "secret_password";
+            this.name = "John Doe";
+            this.phoneNumber = "08888888888";
         }
 
         public UserBuilder WithId(Guid id)
@@ -32,6 +32,6 @@
             return this;
         }
 
-        public User Build() => new User(id, email, passwordHash, name, phoneNumber);
+        public User Build() => new User(this.id, this.email, this.passwordHash, this.name, this.phoneNumber);
     }
 }

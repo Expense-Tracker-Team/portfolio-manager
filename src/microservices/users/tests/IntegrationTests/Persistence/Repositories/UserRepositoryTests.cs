@@ -12,7 +12,7 @@
     using System.Threading.Tasks;
     using Xunit;
     using System.Collections.Generic;
-    using UserDataModel = global::Persistence.Models.User;
+    using UserDataModel = global::Persistence.Models.UserDataModel;
     using Xunit.Abstractions;
 
     public class UserRepositoryTests

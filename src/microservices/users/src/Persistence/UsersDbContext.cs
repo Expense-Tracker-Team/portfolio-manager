@@ -12,7 +12,7 @@
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDataModel> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
     }
