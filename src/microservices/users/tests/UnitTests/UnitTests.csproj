@@ -7,8 +7,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Infrastructure\**" />
+    <Compile Remove="Persistence\**" />
     <EmbeddedResource Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="Persistence\**" />
     <None Remove="Infrastructure\**" />
+    <None Remove="Persistence\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="6.0.1" />
@@ -33,8 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Persistence\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Api\Api.csproj" />

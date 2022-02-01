@@ -4,10 +4,9 @@
     using Domain;
     using Microsoft.EntityFrameworkCore;
     using Persistence.Interfaces;
+    using Persistence.Models;
     using System;
     using System.Threading.Tasks;
-
-    using UserDataModel = Persistence.Models.User;
 
     public class UserRepository : IUserRepository
     {
@@ -34,7 +33,7 @@
 
         public async Task<User> GetAsync(Guid userId)
         {
-            var user = await this.dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
+            UserDataModel user = await this.dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == userId);
 
             return new User(user.Id, user.Email, user.PasswordHash, user.Name, user.PhoneNumber);
         }
